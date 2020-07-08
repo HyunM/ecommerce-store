@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Product from "./Product";
-import Title from "./Title";
+import Title from "./styled/Title";
 import { storeProducts } from "../data";
 
 export default class ProductList extends Component {
@@ -16,6 +16,7 @@ export default class ProductList extends Component {
           <div className="container">
             <Title name="our" title="products" />
             {/* test */}
+            <Product />
             <div className="row"></div>
           </div>
         </div>
