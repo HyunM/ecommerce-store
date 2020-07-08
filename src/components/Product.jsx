@@ -81,7 +81,7 @@ const ProductWrapper = styled.div`
 
   ${"" /* flickering bug needs to be fixed */}
   .img-container:hover .card-img-top {
-    transform: scale(1.3);
+    transform: scale(1.2);
   }
 
   .cart-btn {

@@ -15,10 +15,6 @@ export default class Home extends Component {
     this.setProducts = this.setProducts.bind(this);
   }
 
-  componentDidMount() {
-    this.setProducts();
-  }
-
   setProducts = () => {
     let tempProducts = [];
     storeProducts.forEach(item => {
@@ -41,7 +37,7 @@ export default class Home extends Component {
     return (
       <div>
         <Title name="our" title="products" />
-        <h1>hello from home</h1>
+        <h5>hello from home</h5>
         <ProductList
           products={this.state.products}
           handleDetail={this.handleDetail}
