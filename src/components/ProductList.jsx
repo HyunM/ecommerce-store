@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import Product from "./Product";
-import Title from "./styled/Title";
-import { storeProducts } from "../data";
 
 export default class ProductList extends Component {
-  state = {
-    products: storeProducts,
-  };
-
   render() {
-    console.log(this.state.products);
+    this.props.handleDetail();
+
     return (
       <React.Fragment>
         <div className="py-5">
+          {console.log(this.props.products)}
           <div className="container">
-            <Title name="our" title="products" />
             {/* test */}
-            <Product />
+            {this.props.products.map(product => {
+              return <Product key={product.id} product={product} />;
+            })}
             <div className="row"></div>
           </div>
         </div>
