@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Product from "./Product";
 
 export default class ProductList extends Component {
+  componentDidMount() {
+    this.props.setProducts();
+  }
   render() {
     this.props.handleDetail();
 

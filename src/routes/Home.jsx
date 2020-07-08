@@ -7,12 +7,29 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: storeProducts,
+      products: [],
       detailProduct: {},
     };
     this.handleDetail = this.handleDetail.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.setProducts = this.setProducts.bind(this);
   }
+
+  componentDidMount() {
+    this.setProducts();
+  }
+
+  setProducts = () => {
+    let tempProducts = [];
+    storeProducts.forEach(item => {
+      const singleItem = { ...item };
+      tempProducts = [...tempProducts, singleItem];
+    });
+    this.setState(() => {
+      return { products: tempProducts };
+    });
+  };
+
   handleDetail = () => {
     console.log("hello from handleDetail");
   };
@@ -28,6 +45,7 @@ export default class Home extends Component {
         <ProductList
           products={this.state.products}
           handleDetail={this.handleDetail}
+          setProducts={this.setProducts}
         />
       </div>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default class Product extends Component {
   render() {
@@ -40,6 +41,16 @@ export default class Product extends Component {
   }
 }
 
+Product.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    img: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    inCart: PropTypes.bool,
+  }).isRequired,
+};
+
 const ProductWrapper = styled.div`
   .card {
     border-color: transparent;
@@ -68,8 +79,9 @@ const ProductWrapper = styled.div`
     transition: all 1s linear;
   }
 
+  ${"" /* flickering bug needs to be fixed */}
   .img-container:hover .card-img-top {
-    transform: scale(1.2);
+    transform: scale(1.3);
   }
 
   .cart-btn {
