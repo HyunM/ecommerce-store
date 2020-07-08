@@ -11,10 +11,12 @@ export default class ProductList extends Component {
           {console.log(this.props.products)}
           <div className="container">
             {/* test */}
-            {this.props.products.map(product => {
-              return <Product key={product.id} product={product} />;
-            })}
-            <div className="row"></div>
+
+            <div className="row">
+              {this.props.products.map(product => {
+                return <Product key={product.id} product={product} />;
+              })}
+            </div>
           </div>
         </div>
       </React.Fragment>
