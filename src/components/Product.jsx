@@ -79,7 +79,6 @@ const ProductWrapper = styled.div`
     transition: all 1s linear;
   }
 
-  ${"" /* flickering bug needs to be fixed */}
   .img-container:hover .card-img-top {
     transform: scale(1.2);
   }
