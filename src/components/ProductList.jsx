@@ -7,7 +7,6 @@ export default class ProductList extends Component {
   }
   render() {
     this.props.handleDetail();
-
     return (
       <React.Fragment>
         <div className="py-5">
@@ -17,7 +16,13 @@ export default class ProductList extends Component {
 
             <div className="row">
               {this.props.products.map(product => {
-                return <Product key={product.id} product={product} />;
+                return (
+                  <Product
+                    key={product.id}
+                    product={product}
+                    updateCurrentId={this.props.updateCurrentId}
+                  />
+                );
               })}
             </div>
           </div>

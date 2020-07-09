@@ -4,6 +4,16 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.onUpdateCurrentId = this.onUpdateCurrentId.bind(this);
+  }
+
+  onUpdateCurrentId = () => {
+    this.props.updateCurrentId(this.props.product.id);
+  };
+
   render() {
     const { id, title, img, price, inCart, info, company } = this.props.product;
 
@@ -15,18 +25,8 @@ export default class Product extends Component {
             onClick={() => console.log("you clicked me")}
           >
             <Link
-              to={{
-                pathname: `/product/${id}`,
-                state: {
-                  id,
-                  title,
-                  img,
-                  price,
-                  inCart,
-                  info,
-                  company,
-                },
-              }}
+              to={{ pathname: `/product/${id}` }}
+              onClick={this.onUpdateCurrentId}
             >
               <img src={img} alt={title} className="card-img-top" />
             </Link>
