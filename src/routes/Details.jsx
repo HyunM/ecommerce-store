@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 import { ButtonContainer } from "../components/styled/Button";
 
 export default class Details extends Component {
+  constructor(props) {
+    super(props);
+
+    // this.onAddToCart = this.onAddToCart.bind(this);
+  }
+
+  // onAddToCart = () => {
+  //   this.props.addToCart(this.props.detailObj[0].id);
+  // };
   render() {
     const obj = this.props.detailObj[0];
     return (
@@ -42,10 +51,13 @@ export default class Details extends Component {
                 <ButtonContainer>back to products</ButtonContainer>
               </Link>
               <ButtonContainer
-                disabled={obj.inCart ? true : false}
-                onClick={this.props.addToCart}
+                cart
+                disabled={this.props.products[obj.id - 1].inCart ? true : false}
+                onClick={() => this.props.addToCart(obj.id)}
               >
-                {obj.inCart ? "inCart" : "add to cart"}
+                {this.props.products[obj.id - 1].inCart
+                  ? "inCart"
+                  : "add to cart"}
               </ButtonContainer>
             </div>
           </div>

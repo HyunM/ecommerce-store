@@ -16,7 +16,7 @@ export default class Product extends Component {
 
   render() {
     const { id, title, img, price, inCart, info, company } = this.props.product;
-
+    debugger;
     return (
       <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
@@ -30,7 +30,13 @@ export default class Product extends Component {
             >
               <img src={img} alt={title} className="card-img-top" />
             </Link>
-            <button className="cart-btn" disabled={inCart ? true : false}>
+            <button
+              className="cart-btn"
+              disabled={inCart ? true : false}
+              onClick={() => {
+                this.props.addToCart(id);
+              }}
+            >
               {inCart ? (
                 <p className="text-capitalize mb-0" disabled>
                   in cart

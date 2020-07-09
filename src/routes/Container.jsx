@@ -13,10 +13,16 @@ export default class Container extends Component {
       products: [],
       currentId: 0,
       detailObj: {},
+      cart: [],
     };
     this.addToCart = this.addToCart.bind(this);
     this.setProducts = this.setProducts.bind(this);
     this.updateCurrentId = this.updateCurrentId.bind(this);
+  }
+
+  componentDidMount() {
+    debugger;
+    this.setProducts();
   }
 
   updateCurrentId = id => {
@@ -26,8 +32,30 @@ export default class Container extends Component {
     });
   };
 
-  addToCart = () => {
-    console.log("hello from addToCart");
+  getItem = id => {
+    const product = this.state.products.find(item => item.id === id);
+    return product;
+  };
+
+  addToCart = id => {
+    let tempProducts = [...this.state.products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.inCart = true;
+
+    product.count = 1;
+    const price = product.price;
+    product.total = price;
+    this.setState(
+      () => {
+        return { products: tempProducts, cart: [...this.state.cart, product] };
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
+
+    console.log("hello from addToCart. ID is " + id);
   };
 
   setProducts = () => {
@@ -52,17 +80,18 @@ export default class Container extends Component {
               products={this.state.products}
               setProducts={this.setProducts}
               updateCurrentId={this.updateCurrentId}
+              addToCart={this.addToCart}
             />
           )}
         />
         <Route path="/cart" component={Cart} />
-        {/* <Route path="/product/:id" component={Details} /> */}
         <Route
           path="/product/:id"
           render={props => (
             <Details
               addToCart={this.addToCart}
               detailObj={this.state.detailObj}
+              products={this.state.products}
             />
           )}
         />

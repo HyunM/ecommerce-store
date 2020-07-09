@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import Product from "./Product";
 
 export default class ProductList extends Component {
-  componentDidMount() {
-    this.props.setProducts();
-  }
   render() {
-    this.props.handleDetail();
     return (
       <React.Fragment>
         <div className="py-5">
@@ -21,6 +17,7 @@ export default class ProductList extends Component {
                     key={product.id}
                     product={product}
                     updateCurrentId={this.props.updateCurrentId}
+                    addToCart={this.props.addToCart}
                   />
                 );
               })}
