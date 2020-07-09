@@ -17,7 +17,13 @@ export default class ProductList extends Component {
 
             <div className="row">
               {this.props.products.map(product => {
-                return <Product key={product.id} product={product} />;
+                return (
+                  <Product
+                    key={product.id}
+                    product={product}
+                    addToCart={this.props.addToCart}
+                  />
+                );
               })}
             </div>
           </div>

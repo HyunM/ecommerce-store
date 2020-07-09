@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default class Product extends Component {
+class Product extends Component {
   render() {
     const { id, title, img, price, inCart, info, company } = this.props.product;
-
+    const addToCart = this.props.addToCart;
     return (
       <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
@@ -53,6 +53,8 @@ export default class Product extends Component {
     );
   }
 }
+
+export default withRouter(Product);
 
 Product.propTypes = {
   product: PropTypes.shape({

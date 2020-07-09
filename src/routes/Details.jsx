@@ -6,7 +6,6 @@ export default class Details extends Component {
   render() {
     const { location } = this.props;
     console.log(location.state.id);
-    debugger;
     return (
       <div className="container py-5">
         {/* title */}
@@ -48,6 +47,14 @@ export default class Details extends Component {
               <Link to="/">
                 <ButtonContainer>back to products</ButtonContainer>
               </Link>
+              <ButtonContainer
+                disabled={location.state.inCart ? true : false}
+                onClick={() => {
+                  location.state.addToCart(location.state.id);
+                }}
+              >
+                {location.state.inCart ? "inCart" : "add to cart"}
+              </ButtonContainer>
             </div>
           </div>
         </div>

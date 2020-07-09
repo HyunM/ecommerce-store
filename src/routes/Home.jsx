@@ -30,8 +30,8 @@ export default class Home extends Component {
     console.log("hello from handleDetail");
   };
 
-  addToCart = () => {
-    console.log("hello from addToCart");
+  addToCart = (id = 0) => {
+    console.log("this ID is ");
   };
   render() {
     return (
@@ -41,6 +41,7 @@ export default class Home extends Component {
         <ProductList
           products={this.state.products}
           handleDetail={this.handleDetail}
+          addToCart={this.addToCart}
           setProducts={this.setProducts}
         />
       </div>
