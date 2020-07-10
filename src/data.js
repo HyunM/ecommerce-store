@@ -10,6 +10,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 7,
@@ -82,6 +88,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 8,
@@ -94,6 +101,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
 
   {
@@ -107,6 +115,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 10,
@@ -119,6 +128,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 11,
@@ -131,6 +141,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 12,
@@ -143,6 +154,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 13,
@@ -155,6 +167,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 14,
@@ -167,6 +180,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 15,
@@ -179,6 +193,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 16,
@@ -191,6 +206,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 17,
@@ -203,6 +219,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 18,
@@ -215,6 +232,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "Accounting",
   },
   {
     id: 19,
@@ -227,6 +245,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 20,
@@ -239,6 +258,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 21,
@@ -251,6 +271,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 22,
@@ -263,6 +284,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 23,
@@ -275,6 +297,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
 
   {
@@ -288,6 +311,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
 
   {
@@ -301,6 +325,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
 
   {
@@ -314,6 +339,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 29,
@@ -326,6 +352,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 30,
@@ -338,6 +365,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 31,
@@ -350,6 +378,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 32,
@@ -362,6 +391,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 33,
@@ -374,6 +404,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 34,
@@ -386,6 +417,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 35,
@@ -398,6 +430,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
 
   {
@@ -411,6 +444,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
 
   {
@@ -424,6 +458,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 39,
@@ -436,6 +471,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 40,
@@ -448,6 +484,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 41,
@@ -460,6 +497,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 42,
@@ -472,6 +510,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 43,
@@ -484,6 +523,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "HR",
   },
   {
     id: 44,
@@ -496,6 +536,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
 
   {
@@ -509,6 +550,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 46,
@@ -521,6 +563,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 47,
@@ -533,6 +576,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 48,
@@ -545,6 +589,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 49,
@@ -557,6 +602,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
   {
     id: 50,
@@ -569,6 +615,7 @@ export const storeProducts = [
     inCart: false,
     count: 0,
     total: 0,
+    department: "IT",
   },
 ];
 

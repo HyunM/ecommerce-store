@@ -20,6 +20,7 @@ export default class Container extends Component {
       cartSubTotal: 0,
       cartTax: 0,
       cartTotal: 0,
+      formPage: false,
     };
     this.addToCart = this.addToCart.bind(this);
     this.setProducts = this.setProducts.bind(this);
@@ -196,11 +197,11 @@ export default class Container extends Component {
             render={props => (
               <Home
                 products={this.state.products}
-                setProducts={this.setProducts}
                 updateCurrentId={this.updateCurrentId}
                 addToCart={this.addToCart}
                 openModal={this.openModal}
                 closeModal={this.closeModal}
+                formPage={this.state.formPage}
               />
             )}
           />

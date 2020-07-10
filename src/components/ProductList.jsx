@@ -6,10 +6,7 @@ export default class ProductList extends Component {
     return (
       <React.Fragment>
         <div className="py-5">
-          {console.log(this.props.products)}
           <div className="container">
-            {/* test */}
-
             <div className="row">
               {this.props.products.map(product => {
                 return (
