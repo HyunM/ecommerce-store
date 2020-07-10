@@ -74,6 +74,8 @@ const ProductWrapper = styled.div`
   .card {
     border-color: transparent;
     transition: all 0.5s linear;
+    height: 280px;
+    overflow: auto;
   }
   .card-footer {
     background: transparent;
@@ -92,6 +94,7 @@ const ProductWrapper = styled.div`
   .img-container {
     position: relative;
     overflow: hidden;
+    height: 250px;
   }
 
   .card-img-top {
