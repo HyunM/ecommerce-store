@@ -1,68 +1,78 @@
-import React, { Component } from "react";
-import DataTable from "react-data-table-component";
+import React from "react";
+import { useTable } from "react-table";
 
-export default class ProductTable extends Component {
-  render() {
-    const data = [...this.props.products];
-    return (
-      <div className="App">
-        <div className="card">
-          <DataTable
-            columns={columns}
-            data={data}
-            defaultSortField="title"
-            pagination
-            search
-            // customStyles={customStyles}
-          />
-        </div>
-      </div>
-    );
-  }
+export default function ProductTable({ products }) {
+  //   const data = props.products === undefined ? null : [...this.props.products];
+  const data = [...products];
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Title",
+        accessor: "title",
+      },
+      {
+        Header: "Company",
+        accessor: "company",
+      },
+      {
+        Header: "Department",
+        accessor: "department",
+      },
+    ],
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({ columns, data });
+  return (
+    <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps()}
+                style={{
+                  borderBottom: "solid 3px red",
+                  background: "aliceblue",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
+              >
+                {column.render("Header")}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map(row => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                return (
+                  <td
+                    {...cell.getCellProps()}
+                    style={{
+                      padding: "10px",
+                      border: "solid 1px gray",
+                      background: "papayawhip",
+                    }}
+                  >
+                    {cell.render("Cell")}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 }
-
-const columns = [
-  {
-    name: "Title",
-    selector: "title",
-    sortable: true,
-  },
-  {
-    name: "Company",
-    selector: "company",
-    sortable: true,
-    right: true,
-  },
-  {
-    name: "Department",
-    selector: "department",
-    sortable: true,
-    right: true,
-  },
-  {
-    name: "image",
-    selector: "img",
-    sortable: true,
-    right: true,
-  },
-];
-
-// const customStyles = {
-//   rows: {
-//     style: {
-//       minHeight: "72px", // override the row height
-//     },
-//   },
-//   headCells: {
-//     style: {
-//       paddingLeft: "8px", // override the cell padding for head cells
-//       paddingRight: "8px",
-//     },
-//   },
-//   cells: {
-//     style: {
-//       paddingLeft: "8px", // override the cell padding for data cells
-//       paddingRight: "8px",
-//     },
-//   },
-// };
