@@ -3,10 +3,6 @@ import Title from "../components/styled/Title";
 import ProductList from "../components/ProductList";
 
 export default class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
@@ -15,6 +11,8 @@ export default class Home extends Component {
           products={this.props.products}
           updateCurrentId={this.props.updateCurrentId}
           addToCart={this.props.addToCart}
+          openModal={this.props.openModal}
+          closeModal={this.props.closeModal}
         />
       </div>
     );

@@ -18,6 +18,8 @@ export default class ProductList extends Component {
                     product={product}
                     updateCurrentId={this.props.updateCurrentId}
                     addToCart={this.props.addToCart}
+                    openModal={this.props.openModal}
+                    closeModal={this.props.closeModal}
                   />
                 );
               })}

@@ -4,7 +4,8 @@ import Details from ".//Details";
 import Cart from ".//Cart";
 import Default from ".//Default";
 import { Switch, Route } from "react-router-dom";
-import { storeProducts } from "../data";
+import { storeProducts, detailProduct } from "../data";
+import Modal from "../components/Modal";
 
 export default class Container extends Component {
   constructor(props) {
@@ -14,10 +15,14 @@ export default class Container extends Component {
       currentId: 0,
       detailObj: {},
       cart: [],
+      modalOpen: false,
+      modalProduct: detailProduct,
     };
     this.addToCart = this.addToCart.bind(this);
     this.setProducts = this.setProducts.bind(this);
     this.updateCurrentId = this.updateCurrentId.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -54,8 +59,19 @@ export default class Container extends Component {
         console.log(this.state);
       }
     );
+  };
 
-    console.log("hello from addToCart. ID is " + id);
+  openModal = id => {
+    const product = this.getItem(id);
+    this.setState(() => {
+      return { modalProduct: product, modalOpen: true };
+    });
+  };
+
+  closeModal = () => {
+    this.setState(() => {
+      return { modalOpen: false };
+    });
   };
 
   setProducts = () => {
@@ -71,32 +87,43 @@ export default class Container extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={props => (
-            <Home
-              products={this.state.products}
-              setProducts={this.setProducts}
-              updateCurrentId={this.updateCurrentId}
-              addToCart={this.addToCart}
-            />
-          )}
+      <React.Fragment>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Home
+                products={this.state.products}
+                setProducts={this.setProducts}
+                updateCurrentId={this.updateCurrentId}
+                addToCart={this.addToCart}
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+              />
+            )}
+          />
+          <Route path="/cart" component={Cart} />
+          <Route
+            path="/product/:id"
+            render={props => (
+              <Details
+                addToCart={this.addToCart}
+                detailObj={this.state.detailObj}
+                products={this.state.products}
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+              />
+            )}
+          />
+          <Route component={Default} />
+        </Switch>
+        <Modal
+          modalOpen={this.state.modalOpen}
+          modalProduct={this.state.modalProduct}
+          closeModal={this.closeModal}
         />
-        <Route path="/cart" component={Cart} />
-        <Route
-          path="/product/:id"
-          render={props => (
-            <Details
-              addToCart={this.addToCart}
-              detailObj={this.state.detailObj}
-              products={this.state.products}
-            />
-          )}
-        />
-        <Route component={Default} />
-      </Switch>
+      </React.Fragment>
     );
   }
 }
