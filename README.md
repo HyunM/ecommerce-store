@@ -4,6 +4,6 @@ npm
 
 styled-components
 
-<!-- react-table -->
+react-table
 
 #material-ui/core
