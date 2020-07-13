@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
+import "./ProductTable.css";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -28,6 +29,10 @@ const Styles = styled.div`
       }
     }
   }
+
+  .pagination {
+    padding: 0.5rem;
+  }
 `;
 
 export default function ProductTable({ products }) {
@@ -46,19 +51,20 @@ export default function ProductTable({ products }) {
             Header: "Company",
             accessor: "company",
           },
+          {
+            Header: "Price",
+            accessor: "price",
+          },
         ],
       },
       {
-        Header: "Info",
+        Header: "Status",
         columns: [
           {
             Header: "Department",
             accessor: "department",
           },
-          {
-            Header: "Price",
-            accessor: "price",
-          },
+
           {
             Header: "inCart",
             accessor: "inCart",
@@ -73,19 +79,44 @@ export default function ProductTable({ products }) {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy);
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    { columns, data, initialState: { pageIndex: 0 } },
+    useSortBy,
+    usePagination
+  );
 
-  const firstPageRows = rows.slice(0, 20);
+  // const firstPageRows = page.slice(0, 20);
 
   return (
     <Styles>
       <>
-        <table {...getTableProps()}>
+        {/* <pre>
+          <code>
+            {JSON.stringify(
+              { pageIndex, pageSize, pageCount, canNextPage, canPreviousPage },
+              null,
+              2
+            )}
+          </code>
+        </pre> */}
+        <table {...getTableProps()} className="mx-auto">
           <thead>
             {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
+              <tr
+                className="tHeaderGroups"
+                {...headerGroup.getHeaderGroupProps()}
+              >
                 {headerGroup.headers.map(column => (
                   // Add the sorting props to control sorting.
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
@@ -104,7 +135,7 @@ export default function ProductTable({ products }) {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {firstPageRows.map((row, i) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -118,8 +149,58 @@ export default function ProductTable({ products }) {
             })}
           </tbody>
         </table>
-        <br />
-        <div>Showing the first 20 results of {rows.length} rows</div>
+
+        <div className="pagination mx-auto">
+          <div className="mx-auto">
+            <button
+              className=""
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+            >
+              {"<<"}
+            </button>{" "}
+            <button
+              className="ml-2"
+              onClick={() => previousPage(0)}
+              disabled={!canPreviousPage}
+            >
+              {"<"}
+            </button>{" "}
+            <button
+              className="ml-2"
+              onClick={() => nextPage(0)}
+              disabled={!canNextPage}
+            >
+              {">"}
+            </button>{" "}
+            <button
+              className="ml-2"
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              {">>"}
+            </button>{" "}
+            <span className="ml-5">
+              Page{" "}
+              <strong className="ml-2">
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{" "}
+            </span>{" "}
+            <select
+              className="ml-5"
+              calue={pageSize}
+              onChange={e => {
+                setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 30, 40, 50].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </>
     </Styles>
   );
