@@ -10,6 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePaginationActions from "./TablePaginationActions";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 const useStyles = makeStyles({
   table: {
@@ -39,10 +40,12 @@ export default function ProductTable({ products }) {
 
   return (
     <TableContainer className={classes.table} component={Paper}>
-      <Table stickyHeader aria-label="sticky table">
+      <Table aria-label="sticky table">
         <TableHead>
           <TableRow>
-            <TableCell>Product Title</TableCell>
+            <TableCell>
+              <TableSortLabel active="true">Product Title</TableSortLabel>
+            </TableCell>
             <TableCell align="right">Company</TableCell>
             <TableCell align="right">Department</TableCell>
             <TableCell align="right">Price</TableCell>
