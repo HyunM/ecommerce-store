@@ -20,7 +20,7 @@ export default class Container extends Component {
       cartSubTotal: 0,
       cartTax: 0,
       cartTotal: 0,
-      formPage: false,
+      formPage: true,
     };
     this.addToCart = this.addToCart.bind(this);
     this.setProducts = this.setProducts.bind(this);
@@ -31,11 +31,16 @@ export default class Container extends Component {
     this.decrement = this.decrement.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.clearCart = this.clearCart.bind(this);
+    this.flipFormPage = this.flipFormPage.bind(this);
   }
 
   componentDidMount() {
     this.setProducts();
   }
+
+  flipFormPage = form => {
+    this.setState({ formPage: form });
+  };
 
   updateCurrentId = id => {
     this.setState({
@@ -136,7 +141,6 @@ export default class Container extends Component {
   removeItem = id => {
     let tempProducts = [...this.state.products];
     let tempCart = [...this.state.cart];
-    debugger;
     tempCart = tempCart.filter(item => item.id !== id);
 
     const index = tempProducts.indexOf(this.getItem(id));
@@ -202,6 +206,7 @@ export default class Container extends Component {
                 openModal={this.openModal}
                 closeModal={this.closeModal}
                 formPage={this.state.formPage}
+                flipFormPage={this.flipFormPage}
               />
             )}
           />

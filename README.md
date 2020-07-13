@@ -2,6 +2,8 @@ Ecommerce Store
 
 npm
 
-react-data-table-component
-
 styled-components
+
+<!-- react-table -->
+
+#material-ui/core
