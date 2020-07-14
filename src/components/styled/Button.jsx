@@ -21,4 +21,12 @@ export const ButtonContainer = styled.button`
   &:focus {
     outline: none;
   }
+
+  .navCart {
+    color: var(--mainWhite);
+  }
+
+  .navCart :hover {
+    color: var(--mainBlue);
+  }
 `;

@@ -44,7 +44,12 @@ export default class Home extends Component {
             closeModal={this.props.closeModal}
           />
         ) : (
-          <ProductTable products={this.props.products} />
+          <ProductTable
+            products={this.props.products}
+            addToCart={this.props.addToCart}
+            openModal={this.props.openModal}
+            closeModal={this.props.closeModal}
+          />
         )}
       </div>
     );

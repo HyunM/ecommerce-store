@@ -2,6 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { useTable, useSortBy, usePagination } from "react-table";
 import "./ProductTable.css";
+import "./styled/Button";
+import "./Modal";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import { Select } from "@material-ui/core";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -35,7 +46,17 @@ const Styles = styled.div`
   }
 `;
 
-export default function ProductTable({ products }) {
+function toCurrency(numberString) {
+  let number = parseFloat(numberString);
+  return number.toLocaleString("USD");
+}
+
+export default function ProductTable({
+  products,
+  addToCart,
+  openModal,
+  closeModal,
+}) {
   const data = React.useMemo(() => [...products], [products]);
 
   const columns = React.useMemo(
@@ -46,14 +67,21 @@ export default function ProductTable({ products }) {
           {
             Header: "Title",
             accessor: "title",
+            Cell: ({ value }) => (
+              <div className="t-blue f-weight-700">{value}</div>
+            ),
           },
           {
             Header: "Company",
             accessor: "company",
+            Cell: ({ value }) => <div className="f-weight-500">{value}</div>,
           },
           {
             Header: "Price",
             accessor: "price",
+            Cell: ({ value }) => (
+              <div className="t-lblue text-right">$ {toCurrency(value)}</div>
+            ),
           },
         ],
       },
@@ -63,16 +91,63 @@ export default function ProductTable({ products }) {
           {
             Header: "Department",
             accessor: "department",
+            Cell: ({ value }) => (
+              <div className="t-info f-weight-500">{value}</div>
+            ),
           },
-
+          {
+            Header: "Stock",
+            accessor: "inStock",
+            Cell: ({ value }) => (
+              <div className="t-grey text-right">{value}</div>
+            ),
+          },
+          {
+            Header: "Min. Stock",
+            accessor: "minStock",
+            Cell: ({ value }) => (
+              <div className="t-grey text-right">{value}</div>
+            ),
+          },
+          {
+            Header: "Status",
+            accessor: data => data.minStock - data.inStock,
+            sortType: "basic",
+            Cell: ({ value }) =>
+              value >= 0 ? (
+                <div className="t-green text-right">{"+" + value}</div>
+              ) : (
+                <div className="t-red f-weight-500 text-right">{value}</div>
+              ),
+          },
           {
             Header: "inCart",
             accessor: "inCart",
+            Cell: row => (
+              <div className="text-center">
+                <button
+                  className="cart-btn"
+                  disabled={row.row.original.inCart ? true : false}
+                  onClick={() => {
+                    addToCart(row.row.original.id);
+                    openModal(row.row.original.id);
+                  }}
+                >
+                  {row.row.original.inCart ? (
+                    <p className="text-capitalize mb-0" disabled>
+                      in cart
+                    </p>
+                  ) : (
+                    <i className="fas fa-cart-plus" />
+                  )}
+                </button>
+              </div>
+            ),
           },
         ],
       },
     ],
-    []
+    [addToCart, openModal]
   );
 
   const {
@@ -150,55 +225,56 @@ export default function ProductTable({ products }) {
           </tbody>
         </table>
 
-        <div className="pagination mx-auto">
+        <div className="pagination mx-auto table-footer">
           <div className="mx-auto">
-            <button
-              className=""
+            <SkipPreviousIcon
+              className="cp cpIcon"
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
-            >
-              {"<<"}
-            </button>{" "}
-            <button
-              className="ml-2"
+              color="primary"
+              fontSize="large"
+            ></SkipPreviousIcon>{" "}
+            <ArrowLeftIcon
+              className="ml-2 cp cpIcon"
               onClick={() => previousPage(0)}
               disabled={!canPreviousPage}
-            >
-              {"<"}
-            </button>{" "}
-            <button
-              className="ml-2"
+              color="primary"
+              fontSize="large"
+            ></ArrowLeftIcon>{" "}
+            <ArrowRightIcon
+              className="ml-2 cp cpIcon"
               onClick={() => nextPage(0)}
               disabled={!canNextPage}
-            >
-              {">"}
-            </button>{" "}
-            <button
-              className="ml-2"
+              color="primary"
+              fontSize="large"
+            ></ArrowRightIcon>{" "}
+            <SkipNextIcon
+              className="ml-2 cp cpIcon"
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
-            >
-              {">>"}
-            </button>{" "}
+              color="primary"
+              fontSize="large"
+            ></SkipNextIcon>{" "}
             <span className="ml-5">
               Page{" "}
               <strong className="ml-2">
                 {pageIndex + 1} of {pageOptions.length}
               </strong>{" "}
             </span>{" "}
-            <select
+            <Select
               className="ml-5"
-              calue={pageSize}
+              value={pageSize}
+              displayEmpty
               onChange={e => {
                 setPageSize(Number(e.target.value));
               }}
             >
               {[10, 20, 30, 40, 50].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
+                <MenuItem key={pageSize} value={pageSize}>
                   Show {pageSize}
-                </option>
+                </MenuItem>
               ))}
-            </select>
+            </Select>
           </div>
         </div>
       </>

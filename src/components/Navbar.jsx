@@ -17,16 +17,15 @@ export default class Navbar extends Component {
         <ul className="navbar-nav align-items-center">
           <li className="nav-item ml-5">
             <Link to="/" className="nav-link">
-              products
+              <p className="nav-item my-0">products</p>
             </Link>
           </li>
         </ul>
         <Link to="/cart" className="ml-auto">
-          <ButtonContainer>
-            <span className="mr-2">
-              <i className="fas fa-cart-plus"></i>
+          <ButtonContainer className="navCart">
+            <span className="mr-2 navCart">
+              <i className="fas fa-cart-plus">Cart</i>
             </span>
-            Cart
           </ButtonContainer>
         </Link>
       </NavWrapper>
@@ -35,10 +34,19 @@ export default class Navbar extends Component {
 }
 
 const NavWrapper = styled.nav`
-  background: var(--mainGreen);
+  background: var(--lightBlue);
   .nav-link {
-    color: var(--mainWhite) !important;
+    color: var(--mainWhite);
     font-size: 1.3rem;
     text-transform: capitalize;
+  }
+  .nav-link :hover {
+    color: var(--mainBlue) !important;
+  }
+  .nav-item {
+    color: var(--mainWhite) !important;
+  }
+  .nav-color:hover {
+    color: var(--mainBlue) !important;
   }
 `;
