@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, useSortBy, usePagination } from "react-table";
+import {
+  useTable,
+  useFilters,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useSortBy,
+  usePagination,
+} from "react-table";
 import "./ProductTable.css";
 import "./styled/Button";
 import "./Modal";
@@ -9,10 +16,9 @@ import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import { Select } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+import matchSorter from "match-sorter";
+import Input from "@material-ui/core/Input";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -51,6 +57,179 @@ function toCurrency(numberString) {
   return number.toLocaleString("USD");
 }
 
+function GlobalFilter({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) {
+  const count = preGlobalFilteredRows.length;
+  const [value, setValue] = React.useState(globalFilter);
+  const onChange = useAsyncDebounce(value => {
+    setGlobalFilter(value || undefined);
+  }, 200);
+
+  return (
+    <span>
+      Search:{" "}
+      <Input
+        value={value || ""}
+        onChange={e => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+        placeholder={`${count} records...`}
+        style={{
+          fontSize: "1.1rem",
+          border: "0",
+        }}
+      />
+    </span>
+  );
+}
+
+function DefaultColumnFilter({
+  column: { filterValue, preFilteredRows, setFilter },
+}) {
+  const count = preFilteredRows.length;
+
+  return (
+    <Input
+      value={filterValue || ""}
+      onChange={e => {
+        setFilter(e.target.value || undefined);
+      }}
+      placeholder={`Search ${count} records ...`}
+    />
+  );
+}
+
+function SelectColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}) {
+  const options = React.useMemo(() => {
+    const options = new Set();
+    preFilteredRows.forEach(row => {
+      options.add(row.values[id]);
+    });
+    return [...options.values()];
+  }, [id, preFilteredRows]);
+
+  return (
+    <Select
+      value={filterValue}
+      onChange={e => {
+        setFilter(e.target.value || undefined);
+      }}
+    >
+      <MenuItem value="">All</MenuItem>
+      {options.map((option, i) => (
+        <MenuItem key={i} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+}
+
+// function SliderColumnFilter({
+//   column: { filterValue, setFilter, preFilteredRows, id },
+// }) {
+//   const [min, max] = React.useMemo(() => {
+//     let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
+//     let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
+//     preFilteredRows.forEach(row => {
+//       min = Math.min(row.values[id], min);
+//       max = Math.max(row.values[id], max);
+//     });
+//     return [min, max];
+//   }, [id, preFilteredRows]);
+
+//   return (
+//     <>
+//       <input
+//         type="range"
+//         min={min}
+//         max={max}
+//         value={filterValue || min}
+//         onChange={e => {
+//           setFilter(parseInt(e.target.value, 10));
+//         }}
+//       />
+//       <button onClick={() => setFilter(undefined)}>Off</button>
+//     </>
+//   );
+// }
+
+function NumberRangeColumnFilter({
+  column: { filterValue = [], preFilteredRows, setFilter, id },
+}) {
+  // const [min, max] = React.useMemo(() => {
+  //   let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
+  //   let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
+  //   preFilteredRows.forEach(row => {
+  //     min = Math.min(row.values[id], min);
+  //     max = Math.max(row.values[id], max);
+  //   });
+  //   return [min, max];
+  // }, [id, preFilteredRows]);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
+      <Input
+        value={filterValue[0] || ""}
+        type="number"
+        onChange={e => {
+          const val = e.target.value;
+          setFilter((old = []) => [
+            val ? parseInt(val, 10) : undefined,
+            old[1],
+          ]);
+        }}
+        style={{
+          width: "70px",
+          marginRight: "0.5rem",
+        }}
+        placeholder="min"
+      />
+      TO
+      <Input
+        value={filterValue[1] || ""}
+        type="number"
+        onChange={e => {
+          const val = e.target.value;
+          setFilter((old = []) => [
+            old[0],
+            val ? parseInt(val, 10) : undefined,
+          ]);
+        }}
+        style={{
+          width: "70px",
+          marginLeft: "0.5rem",
+        }}
+        placeholder="max"
+      />
+    </div>
+  );
+}
+
+function fuzzyTextFilterFn(rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [row => row.values[id]] });
+}
+
+fuzzyTextFilterFn.autoRemove = val => !val;
+
+function filterGreaterThan(rows, id, filterValue) {
+  return rows.filter(row => {
+    const rowValue = row.values[id];
+    return rowValue >= filterValue;
+  });
+}
+filterGreaterThan.autoRemove = val => typeof val !== "number";
+
 export default function ProductTable({
   products,
   addToCart,
@@ -75,10 +254,13 @@ export default function ProductTable({
             Header: "Company",
             accessor: "company",
             Cell: ({ value }) => <div className="f-weight-500">{value}</div>,
+            filter: "fuzzyText",
           },
           {
             Header: "Price",
             accessor: "price",
+            Filter: NumberRangeColumnFilter,
+            filter: "between",
             Cell: ({ value }) => (
               <div className="t-lblue text-right">$ {toCurrency(value)}</div>
             ),
@@ -91,6 +273,8 @@ export default function ProductTable({
           {
             Header: "Department",
             accessor: "department",
+            Filter: SelectColumnFilter,
+            filter: "includes",
             Cell: ({ value }) => (
               <div className="t-info f-weight-500">{value}</div>
             ),
@@ -98,6 +282,8 @@ export default function ProductTable({
           {
             Header: "Stock",
             accessor: "inStock",
+            Filter: NumberRangeColumnFilter,
+            filter: "between",
             Cell: ({ value }) => (
               <div className="t-grey text-right">{value}</div>
             ),
@@ -105,6 +291,8 @@ export default function ProductTable({
           {
             Header: "Min. Stock",
             accessor: "minStock",
+            Filter: NumberRangeColumnFilter,
+            filter: "between",
             Cell: ({ value }) => (
               <div className="t-grey text-right">{value}</div>
             ),
@@ -112,6 +300,8 @@ export default function ProductTable({
           {
             Header: "Status",
             accessor: data => data.minStock - data.inStock,
+            Filter: NumberRangeColumnFilter,
+            filter: "between",
             sortType: "basic",
             Cell: ({ value }) =>
               value >= 0 ? (
@@ -123,6 +313,8 @@ export default function ProductTable({
           {
             Header: "inCart",
             accessor: "inCart",
+            disableFilters: true,
+            disableSortBy: true,
             Cell: row => (
               <div className="text-center">
                 <button
@@ -150,11 +342,39 @@ export default function ProductTable({
     [addToCart, openModal]
   );
 
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter(row => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
+    []
+  );
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
+    state,
     page,
     canPreviousPage,
     canNextPage,
@@ -164,27 +384,28 @@ export default function ProductTable({
     nextPage,
     previousPage,
     setPageSize,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter,
     state: { pageIndex, pageSize },
   } = useTable(
-    { columns, data, initialState: { pageIndex: 0 } },
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+      defaultColumn,
+      filterTypes,
+    },
+
+    useFilters,
+    useGlobalFilter,
     useSortBy,
     usePagination
   );
 
-  // const firstPageRows = page.slice(0, 20);
-
   return (
     <Styles>
       <>
-        {/* <pre>
-          <code>
-            {JSON.stringify(
-              { pageIndex, pageSize, pageCount, canNextPage, canPreviousPage },
-              null,
-              2
-            )}
-          </code>
-        </pre> */}
         <table {...getTableProps()} className="mx-auto">
           <thead>
             {headerGroups.map(headerGroup => (
@@ -194,20 +415,38 @@ export default function ProductTable({
               >
                 {headerGroup.headers.map(column => (
                   // Add the sorting props to control sorting.
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-                    {/* Add a sort direction indicator */}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
+                  <th {...column.getHeaderProps()}>
+                    <div>
+                      <span {...column.getSortByToggleProps()}>
+                        {column.render("Header")}
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
+                    </div>
+                    <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div>
                   </th>
                 ))}
               </tr>
             ))}
+            <tr>
+              <th
+                colSpan={visibleColumns.length}
+                style={{
+                  textAlign: "left",
+                }}
+              >
+                <GlobalFilter
+                  preGlobalFilteredRows={preGlobalFilteredRows}
+                  globalFilter={state.globalFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              </th>
+            </tr>
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
@@ -224,6 +463,7 @@ export default function ProductTable({
             })}
           </tbody>
         </table>
+        <br />
 
         <div className="pagination mx-auto table-footer">
           <div className="mx-auto">

@@ -6,4 +6,6 @@ styled-components
 
 react-table
 
-#material-ui/core
+material-ui/core
+
+match-sorter
