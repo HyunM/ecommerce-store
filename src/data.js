@@ -13,6 +13,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 4,
@@ -58,6 +61,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 5,
@@ -73,6 +77,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 6,
@@ -88,6 +93,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 7,
@@ -103,6 +109,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 8,
@@ -118,6 +125,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
 
   {
@@ -134,6 +142,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 10,
@@ -149,6 +158,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 11,
@@ -164,6 +174,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 12,
@@ -179,6 +190,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 13,
@@ -194,6 +206,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 14,
@@ -209,6 +222,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 15,
@@ -224,6 +238,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 16,
@@ -239,6 +254,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 17,
@@ -254,6 +270,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 18,
@@ -269,6 +286,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "Accounting",
+    isDeleted: 0,
   },
   {
     id: 19,
@@ -284,6 +302,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 20,
@@ -299,6 +318,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 21,
@@ -314,6 +334,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 22,
@@ -329,6 +350,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 23,
@@ -344,6 +366,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
 
   {
@@ -360,6 +383,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
 
   {
@@ -376,6 +400,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
 
   {
@@ -422,6 +447,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 31,
@@ -437,6 +463,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 32,
@@ -452,6 +479,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 33,
@@ -467,6 +495,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 34,
@@ -482,6 +511,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 35,
@@ -497,6 +527,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
 
   {
@@ -513,6 +544,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
 
   {
@@ -529,6 +561,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 39,
@@ -544,6 +577,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 40,
@@ -559,6 +593,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 41,
@@ -574,6 +609,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 42,
@@ -589,6 +625,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 43,
@@ -604,6 +641,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "HR",
+    isDeleted: 0,
   },
   {
     id: 44,
@@ -619,6 +657,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
 
   {
@@ -635,6 +674,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 46,
@@ -650,6 +690,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 47,
@@ -665,6 +706,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 48,
@@ -680,6 +722,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 49,
@@ -695,6 +738,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
   {
     id: 50,
@@ -710,6 +754,7 @@ export const storeProducts = [
     count: 0,
     total: 0,
     department: "IT",
+    isDeleted: 0,
   },
 ];
 

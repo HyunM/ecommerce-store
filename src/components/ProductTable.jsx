@@ -15,10 +15,12 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import GetAppIcon from "@material-ui/icons/GetApp";
 import { Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import matchSorter from "match-sorter";
 import Input from "@material-ui/core/Input";
+import { CSVLink } from "react-csv";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -53,7 +55,7 @@ const Styles = styled.div`
 `;
 
 function toCurrency(numberString) {
-  let number = parseFloat(numberString);
+  let number = parseFloat(numberString).toFixed(2);
   return number.toLocaleString("USD");
 }
 
@@ -244,6 +246,11 @@ export default function ProductTable({
         Header: "Product",
         columns: [
           {
+            Header: "ID",
+            accessor: "id",
+            Cell: ({ value }) => <div className="f-weight-700"># {value}</div>,
+          },
+          {
             Header: "Title",
             accessor: "title",
             Cell: ({ value }) => (
@@ -341,6 +348,17 @@ export default function ProductTable({
     ],
     [addToCart, openModal]
   );
+
+  const csvHeaders = [
+    { label: "ID", key: "id" },
+    { label: "Title", key: "title" },
+    { label: "Company", key: "company" },
+    { label: "Info", key: "info" },
+    { label: "Price", key: "price" },
+    { label: "Department", key: "department" },
+    { label: "In Stock", key: "inStock" },
+    { label: "Minimum Stock level", key: "minStock" },
+  ];
 
   const filterTypes = React.useMemo(
     () => ({
@@ -516,6 +534,9 @@ export default function ProductTable({
               ))}
             </Select>
           </div>
+          <CSVLink data={data} headers={csvHeaders} className="mx-auto export">
+            <GetAppIcon /> <p className="fl">Excel Export</p>
+          </CSVLink>
         </div>
       </>
     </Styles>

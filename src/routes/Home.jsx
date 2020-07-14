@@ -4,6 +4,7 @@ import ProductList from "../components/ProductList";
 import ProductTable from "../components/ProductTable";
 import PhotoIcon from "@material-ui/icons/Photo";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -26,14 +27,20 @@ export default class Home extends Component {
       <div>
         <Title name="Materials" title="Management System" />
         <div>
-          <PhotoIcon
-            className="MuiSvgIcon-fontSizeLarge ml-80p MuiSvgIcon-colorPrimary cp"
-            onClick={() => this.onFlipFormPageFromPhoto()}
-          />
-          <ViewListIcon
-            className="MuiSvgIcon-fontSizeLarge MuiSvgIcon-colorPrimary cp"
-            onClick={() => this.onFlipFormPageFromBoard()}
-          />
+          <div className="ml-auto MuiSvgIcon-colorPrimary cp fl">
+            <AddBoxIcon className="MuiSvgIcon-fontSizeLarge ml-5 MuiSvgIcon-colorPrimary cp fl" />
+            <p className="fl mt-5px">ADD</p>
+          </div>
+          <div>
+            <PhotoIcon
+              className="MuiSvgIcon-fontSizeLarge ml-80p MuiSvgIcon-colorPrimary cp"
+              onClick={() => this.onFlipFormPageFromPhoto()}
+            />
+            <ViewListIcon
+              className="MuiSvgIcon-fontSizeLarge MuiSvgIcon-colorPrimary cp"
+              onClick={() => this.onFlipFormPageFromBoard()}
+            />
+          </div>
         </div>
         {this.props.formPage ? (
           <ProductList

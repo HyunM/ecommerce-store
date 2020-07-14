@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Product from "./Product";
+import { TextField } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { Search } from "@material-ui/icons/";
 
 export default class ProductList extends Component {
   state = {
@@ -27,16 +30,24 @@ export default class ProductList extends Component {
   };
 
   render() {
-    debugger;
     return (
       <React.Fragment>
         <div className="py-5">
           <div className="container">
-            <input
+            <TextField
               type="text"
               className="input"
-              placeholder="Search..."
+              placeholder=""
               onChange={this.handleSearch.bind(this)}
+              label="Search"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <div className="row">
