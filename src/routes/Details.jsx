@@ -43,15 +43,13 @@ export default class Details extends Component {
               </Link>
               <ButtonContainer
                 cart
-                disabled={this.props.products[obj.id - 1].inCart ? true : false}
+                disabled={obj.inCart ? true : false}
                 onClick={() => {
                   this.props.addToCart(obj.id);
                   this.props.openModal(obj.id);
                 }}
               >
-                {this.props.products[obj.id - 1].inCart
-                  ? "inCart"
-                  : "add to cart"}
+                {obj.inCart ? "inCart" : "add to cart"}
               </ButtonContainer>
             </div>
           </div>

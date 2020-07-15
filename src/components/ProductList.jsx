@@ -6,7 +6,7 @@ import { Search } from "@material-ui/icons/";
 
 export default class ProductList extends Component {
   state = {
-    filtered: this.props.products,
+    filtered: this.props.products.filter(data => data.isDeleted !== 1),
   };
 
   handleSearch = e => {
@@ -14,18 +14,18 @@ export default class ProductList extends Component {
     let newList = [];
 
     if (e.target.value !== "") {
-      currentList = this.props.products;
+      currentList = this.props.products.filter(data => data.isDeleted !== 1);
       newList = currentList.filter(item => {
         const lc = item.title.toLowerCase();
         const filter = e.target.value.toLowerCase();
         return lc.includes(filter);
       });
     } else {
-      newList = this.props.products;
+      newList = this.props.products.filter(data => data.isDeleted !== 1);
     }
 
-    this.setState({
-      filtered: newList,
+    this.setState(() => {
+      return { filtered: newList };
     });
   };
 

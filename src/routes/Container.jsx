@@ -6,6 +6,8 @@ import Default from ".//Default";
 import { Switch, Route } from "react-router-dom";
 import { storeProducts, detailProduct } from "../data";
 import Modal from "../components/Modal";
+import AddModal from "../components/AddModal";
+import DeleteModal from "../components/DeleteModal";
 
 export default class Container extends Component {
   constructor(props) {
@@ -16,14 +18,17 @@ export default class Container extends Component {
       detailObj: {},
       cart: [],
       modalOpen: false,
+      addModalOpen: false,
+      addDeleteOpen: true,
       modalProduct: detailProduct,
+      deleteModalProduct: {},
       cartSubTotal: 0,
       cartTax: 0,
       cartTotal: 0,
       formPage: true,
     };
     this.addToCart = this.addToCart.bind(this);
-    this.setProducts = this.setProducts.bind(this);
+    // this.setProducts = this.setProducts.bind(this);
     this.updateCurrentId = this.updateCurrentId.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -32,6 +37,12 @@ export default class Container extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.clearCart = this.clearCart.bind(this);
     this.flipFormPage = this.flipFormPage.bind(this);
+    this.openAddModal = this.openAddModal.bind(this);
+    this.closeAddModal = this.closeAddModal.bind(this);
+    this.openDeleteModal = this.openDeleteModal.bind(this);
+    this.closeDeleteModal = this.closeDeleteModal.bind(this);
+    this.addProduct = this.addProduct.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   flipFormPage = form => {
@@ -39,9 +50,11 @@ export default class Container extends Component {
   };
 
   updateCurrentId = id => {
-    this.setState({
-      currentId: id,
-      detailObj: storeProducts.filter(item => item.id === id),
+    this.setState(() => {
+      return {
+        currentId: id,
+        detailObj: this.state.products.filter(item => item.id === id),
+      };
     });
   };
 
@@ -69,10 +82,62 @@ export default class Container extends Component {
     );
   };
 
+  addProduct = (title, company, info, department, price, minStock, inStock) => {
+    let tempProducts = [...this.state.products];
+    const item = {
+      id: Math.floor(Math.random() * 10000),
+      inCart: false,
+      count: 0,
+      total: 0,
+      isDeleted: 0,
+      title,
+      company,
+      info,
+      department,
+      price,
+      minStock,
+      inStock,
+      img: "img/product-100.png",
+    };
+    console.log(item);
+    tempProducts.push(item);
+    this.setState(
+      () => {
+        return { products: tempProducts };
+      },
+      () => {
+        this.addTotals();
+      }
+    );
+  };
+
+  deleteProduct = id => {
+    let tempProducts = [...this.state.products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.isDeleted = 1;
+    this.setState(() => {
+      return { products: tempProducts };
+    });
+  };
+
   openModal = id => {
     const product = this.getItem(id);
     this.setState(() => {
       return { modalProduct: product, modalOpen: true };
+    });
+  };
+
+  openAddModal = () => {
+    this.setState(() => {
+      return { addModalOpen: true };
+    });
+  };
+
+  openDeleteModal = id => {
+    const product = this.getItem(id);
+    this.setState(() => {
+      return { deleteModalProduct: product, deleteModalOpen: true };
     });
   };
 
@@ -82,16 +147,28 @@ export default class Container extends Component {
     });
   };
 
-  setProducts = () => {
-    let tempProducts = [];
-    storeProducts.forEach(item => {
-      const singleItem = { ...item };
-      tempProducts = [...tempProducts, singleItem];
-    });
+  closeAddModal = () => {
     this.setState(() => {
-      return { products: tempProducts };
+      return { addModalOpen: false };
     });
   };
+
+  closeDeleteModal = () => {
+    this.setState(() => {
+      return { deleteModalOpen: false };
+    });
+  };
+
+  // setProducts = () => {
+  //   let tempProducts = [];
+  //   storeProducts.forEach(item => {
+  //     const singleItem = { ...item };
+  //     tempProducts = [...tempProducts, singleItem];
+  //   });
+  //   this.setState(() => {
+  //     return { products: tempProducts };
+  //   });
+  // };
 
   increment = id => {
     let tempCart = [...this.state.cart];
@@ -177,25 +254,6 @@ export default class Container extends Component {
     );
   };
 
-  // addToCart = id => {
-  //   let tempProducts = [...this.state.products];
-  //   const index = tempProducts.indexOf(this.getItem(id));
-  //   const product = tempProducts[index];
-  //   product.inCart = true;
-
-  //   product.count = 1;
-  //   const price = product.price;
-  //   product.total = price;
-  //   this.setState(
-  //     () => {
-  //       return { products: tempProducts, cart: [...this.state.cart, product] };
-  //     },
-  //     () => {
-  //       this.addTotals();
-  //     }
-  //   );
-  // };
-
   // clearCart = () => {
   //   this.setState(
   //     () => {
@@ -212,7 +270,7 @@ export default class Container extends Component {
 
   addTotals = () => {
     let subTotal = 0;
-    this.state.cart.map(item => (subTotal += item.total));
+    this.state.cart.map(item => (subTotal += parseFloat(item.total)));
     const tempTax = subTotal * 0.1;
     const tax = parseFloat(tempTax.toFixed(2));
     const total = subTotal + tax;
@@ -241,6 +299,8 @@ export default class Container extends Component {
                 closeModal={this.closeModal}
                 formPage={this.state.formPage}
                 flipFormPage={this.flipFormPage}
+                openAddModal={this.openAddModal}
+                openDeleteModal={this.openDeleteModal}
               />
             )}
           />
@@ -277,6 +337,17 @@ export default class Container extends Component {
           modalOpen={this.state.modalOpen}
           modalProduct={this.state.modalProduct}
           closeModal={this.closeModal}
+        />
+        <AddModal
+          addModalOpen={this.state.addModalOpen}
+          closeAddModal={this.closeAddModal}
+          addProduct={this.addProduct}
+        />
+        <DeleteModal
+          deleteModalOpen={this.state.deleteModalOpen}
+          closeDeleteModal={this.closeDeleteModal}
+          deleteProduct={this.deleteProduct}
+          deleteModalProduct={this.state.deleteModalProduct}
         />
       </React.Fragment>
     );

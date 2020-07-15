@@ -21,6 +21,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import matchSorter from "match-sorter";
 import Input from "@material-ui/core/Input";
 import { CSVLink } from "react-csv";
+import { Link } from "react-router-dom";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -237,6 +240,8 @@ export default function ProductTable({
   addToCart,
   openModal,
   closeModal,
+  openDeleteModal,
+  updateCurrentId,
 }) {
   const data = React.useMemo(() => [...products], [products]);
 
@@ -253,8 +258,15 @@ export default function ProductTable({
           {
             Header: "Title",
             accessor: "title",
-            Cell: ({ value }) => (
-              <div className="t-blue f-weight-700">{value}</div>
+            Cell: row => (
+              <Link
+                to={{ pathname: `/product/${row.row.original.id}` }}
+                onClick={() => updateCurrentId(row.row.original.id)}
+              >
+                <div className="t-blue f-weight-700">
+                  {row.row.original.title}
+                </div>
+              </Link>
             ),
           },
           {
@@ -340,6 +352,24 @@ export default function ProductTable({
                     <i className="fas fa-cart-plus" />
                   )}
                 </button>
+              </div>
+            ),
+          },
+          {
+            Header: "Action",
+            accessor: "total",
+            disableFilters: true,
+            disableSortBy: true,
+            Cell: row => (
+              <div>
+                <EditIcon className="cp" color="primary" />
+                <DeleteIcon
+                  className="cp"
+                  color="secondary"
+                  onClick={() => {
+                    openDeleteModal(row.row.original.id);
+                  }}
+                />
               </div>
             ),
           },

@@ -6,6 +6,7 @@ import PhotoIcon from "@material-ui/icons/Photo";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import "./Home.css";
+import { Link } from "react-router-dom";
 
 export default class Home extends Component {
   constructor(props) {
@@ -27,7 +28,10 @@ export default class Home extends Component {
       <div>
         <Title name="Materials" title="Management System" />
         <div>
-          <div className="ml-auto MuiSvgIcon-colorPrimary cp fl">
+          <div
+            className="ml-auto MuiSvgIcon-colorPrimary cp fl"
+            onClick={this.props.openAddModal}
+          >
             <AddBoxIcon className="MuiSvgIcon-fontSizeLarge ml-5 MuiSvgIcon-colorPrimary cp fl" />
             <p className="fl mt-5px">ADD</p>
           </div>
@@ -44,7 +48,7 @@ export default class Home extends Component {
         </div>
         {this.props.formPage ? (
           <ProductList
-            products={this.props.products}
+            products={this.props.products.filter(data => data.isDeleted !== 1)}
             updateCurrentId={this.props.updateCurrentId}
             addToCart={this.props.addToCart}
             openModal={this.props.openModal}
@@ -52,10 +56,12 @@ export default class Home extends Component {
           />
         ) : (
           <ProductTable
-            products={this.props.products}
+            products={this.props.products.filter(data => data.isDeleted !== 1)}
             addToCart={this.props.addToCart}
             openModal={this.props.openModal}
+            openDeleteModal={this.props.openDeleteModal}
             closeModal={this.props.closeModal}
+            updateCurrentId={this.props.updateCurrentId}
           />
         )}
       </div>
