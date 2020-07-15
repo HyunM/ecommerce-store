@@ -34,10 +34,6 @@ export default class Container extends Component {
     this.flipFormPage = this.flipFormPage.bind(this);
   }
 
-  componentDidMount() {
-    this.setProducts();
-  }
-
   flipFormPage = form => {
     this.setState({ formPage: form });
   };
@@ -163,18 +159,56 @@ export default class Container extends Component {
   };
 
   clearCart = () => {
+    let tempProducts = [...this.state.products];
+    let inCartProducts = tempProducts.filter(data => data.inCart === true);
+    inCartProducts.forEach(data => (data.inCart = false));
+
     this.setState(
       () => {
         return {
+          products: tempProducts,
           cart: [],
         };
       },
       () => {
-        this.setProducts();
+        // this.setProducts();
         this.addTotals();
       }
     );
   };
+
+  // addToCart = id => {
+  //   let tempProducts = [...this.state.products];
+  //   const index = tempProducts.indexOf(this.getItem(id));
+  //   const product = tempProducts[index];
+  //   product.inCart = true;
+
+  //   product.count = 1;
+  //   const price = product.price;
+  //   product.total = price;
+  //   this.setState(
+  //     () => {
+  //       return { products: tempProducts, cart: [...this.state.cart, product] };
+  //     },
+  //     () => {
+  //       this.addTotals();
+  //     }
+  //   );
+  // };
+
+  // clearCart = () => {
+  //   this.setState(
+  //     () => {
+  //       return {
+  //         cart: [],
+  //       };
+  //     },
+  //     () => {
+  //       this.setProducts();
+  //       this.addTotals();
+  //     }
+  //   );
+  // };
 
   addTotals = () => {
     let subTotal = 0;
