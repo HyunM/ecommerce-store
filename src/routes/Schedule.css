@@ -1,0 +1,28 @@
+.w70per {
+  width: 70%;
+}
+
+.f1rem {
+  font-size: 1rem !important;
+}
+
+.po {
+  color: red !important;
+  border-color: red !important;
+}
+
+.po :hover {
+  color: red !important;
+  border-color: red !important;
+  background: orange !important;
+}
+
+.calPO {
+  background: red;
+  border: red;
+}
+
+.borderCard {
+  border: solid 1px royalblue;
+  border-radius: 1rem;
+}

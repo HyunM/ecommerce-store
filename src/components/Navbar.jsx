@@ -20,6 +20,11 @@ export default class Navbar extends Component {
               <p className="nav-item my-0">products</p>
             </Link>
           </li>
+          <li className="nav-item ml-5">
+            <Link to="/schedule" className="nav-link">
+              <p className="nav-item my-0">schedule</p>
+            </Link>
+          </li>
         </ul>
         <Link to="/cart" className="ml-auto">
           <ButtonContainer className="navCart">

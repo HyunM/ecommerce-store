@@ -10,12 +10,22 @@ export const ButtonContainer = styled.button`
       ? "var(--mainYellow)"
       : props.add
       ? "var(--mainYellow)"
+      : props.po
+      ? "orange"
+      : props.da
+      ? "var(--mainYellow)"
+      : props.sd
+      ? "var(--mainWhite)"
       : "var(--lightBlue)"};
 
   color: ${props =>
     props.cart
       ? "var(--mainYellow)"
       : props.add
+      ? "var(--mainYellow)"
+      : props.po
+      ? "orange"
+      : props.da
       ? "var(--mainYellow)"
       : "var(--lightBlue)"};
 
@@ -30,7 +40,14 @@ export const ButtonContainer = styled.button`
         ? "var(--mainYellow)"
         : props.add
         ? "var(--mainYellow)"
+        : props.po
+        ? "orange"
+        : props.da
+        ? "var(--mainYellow)"
+        : props.sd
+        ? "none"
         : "var(--lightBlue)"};
+
     color: var(--mainBlue);
   }
 

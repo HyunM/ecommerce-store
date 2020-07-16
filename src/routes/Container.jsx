@@ -9,6 +9,7 @@ import Modal from "../components/Modal";
 import AddModal from "../components/AddModal";
 import DeleteModal from "../components/DeleteModal";
 import EditModal from "../components/EditModal";
+import Schedule from "./Schedule";
 
 export default class Container extends Component {
   constructor(props) {
@@ -375,6 +376,7 @@ export default class Container extends Component {
               />
             )}
           />
+          <Route path="/schedule" render={props => <Schedule />} />
           <Route component={Default} />
         </Switch>
         <Modal
