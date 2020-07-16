@@ -29,3 +29,7 @@ moment
 moment-range
 
 npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/list @fullcalendar/react @fullcalendar/interaction
+
+npm install react-cookie
+
+npm install universal-cookie

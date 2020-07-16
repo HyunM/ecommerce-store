@@ -10,6 +10,11 @@ import AddModal from "../components/AddModal";
 import DeleteModal from "../components/DeleteModal";
 import EditModal from "../components/EditModal";
 import Schedule from "./Schedule";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
+console.log(cookies.get("myCart"));
 
 export default class Container extends Component {
   constructor(props) {
@@ -49,6 +54,14 @@ export default class Container extends Component {
     this.addProduct = this.addProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
     this.editProduct = this.editProduct.bind(this);
+  }
+
+  componentDidUpdate() {
+    cookies.set(
+      "myCart",
+      this.state.cart.map(data => data.id),
+      { path: "/" }
+    );
   }
 
   flipFormPage = form => {
