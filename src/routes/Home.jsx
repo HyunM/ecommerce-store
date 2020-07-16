@@ -6,7 +6,6 @@ import PhotoIcon from "@material-ui/icons/Photo";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import "./Home.css";
-import { Link } from "react-router-dom";
 
 export default class Home extends Component {
   constructor(props) {
@@ -60,6 +59,7 @@ export default class Home extends Component {
             addToCart={this.props.addToCart}
             openModal={this.props.openModal}
             openDeleteModal={this.props.openDeleteModal}
+            openEditModal={this.props.openEditModal}
             closeModal={this.props.closeModal}
             updateCurrentId={this.props.updateCurrentId}
           />

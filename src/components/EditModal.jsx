@@ -99,7 +99,12 @@ numberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
+export default function EditModal({
+  editModalOpen,
+  closeEditModal,
+  editProduct,
+  editModalProduct,
+}) {
   const [values, setValues] = React.useState({
     textmask: "(1  )    -    ",
     dollarformat: "0",
@@ -126,7 +131,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
     console.log("error code " + error.code + ": " + error.message);
   };
 
-  const handleAddProduct = () => {
+  const handleEditProduct = () => {
     if (
       document.getElementById("title").value === "" ||
       document.getElementById("department").value === "" ||
@@ -136,8 +141,9 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
     ) {
       return alert("Check required property!!");
     } else {
-      closeAddModal();
+      closeEditModal();
       let tempItem = {
+        id: editModalProduct.id,
         title: document.getElementById("title").value,
         company: document.getElementById("company").value,
         info: document.getElementById("info").value,
@@ -146,7 +152,8 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
         minStock: document.getElementById("minStock").value,
         inStock: document.getElementById("inStock").value,
       };
-      addProduct(
+      editProduct(
+        tempItem.id,
         tempItem.title,
         tempItem.company,
         tempItem.info,
@@ -156,27 +163,33 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
         tempItem.inStock
       );
     }
+
+    closeEditModal();
   };
 
   return (
     <React.Fragment>
-      {!addModalOpen ? null : (
+      {!editModalOpen ? null : (
         <ModalContainer>
           <div className="container">
             <div className="row">
               <div
-                id="modal2"
+                id="modal"
                 className="col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize"
               >
-                <h3 className="mt-5">Add New Product</h3>
+                <h3 className="mt-5">Edit Product</h3>
                 <TextField
                   id="title"
                   required
                   label="Title"
-                  defaultValue=""
+                  defaultValue={editModalProduct.title}
                 />{" "}
                 <br />
-                <TextField id="company" label="Company" defaultValue="" />{" "}
+                <TextField
+                  id="company"
+                  label="Company"
+                  defaultValue={editModalProduct.company}
+                />{" "}
                 <br /> <br />
                 <TextField
                   id="info"
@@ -184,6 +197,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   multiline
                   rows={8}
                   variant="outlined"
+                  defaultValue={editModalProduct.info}
                 />{" "}
                 <br />
                 <br />
@@ -191,7 +205,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   id="department"
                   label="Department"
                   required
-                  defaultValue=""
+                  defaultValue={editModalProduct.department}
                 />{" "}
                 <br /> <br />
                 <TextField
@@ -200,6 +214,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   label="amount"
                   name="dollarformat"
                   value={values.numberformat}
+                  defaultValue={editModalProduct.price}
                   onChange={handleChange}
                   InputProps={{
                     inputComponent: dollarFormatCustom,
@@ -213,6 +228,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   label="Minimum Stock Level"
                   name="numberformat1"
                   value={values.numberformat}
+                  defaultValue={editModalProduct.minStock}
                   onChange={handleChange}
                   InputProps={{
                     inputComponent: numberFormatCustom,
@@ -226,6 +242,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   label="In Stock"
                   name="numberformat2"
                   value={values.numberformat}
+                  defaultValue={editModalProduct.inStock}
                   onChange={handleChange}
                   InputProps={{
                     inputComponent: numberFormatCustom,
@@ -247,16 +264,18 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
                   <AttachFileIcon />
                   Click to upload image
                 </Files>
-                <div className="mb-5" id="uploadFiles"></div>
+                <div className="mb-5" id="uploadFiles">
+                  {editModalProduct.img}
+                </div>
                 <div className="mb-5">
                   <Link to="/">
-                    <ButtonContainer onClick={() => closeAddModal()}>
+                    <ButtonContainer onClick={() => closeEditModal()}>
                       cancel
                     </ButtonContainer>
                   </Link>
                   <Link to="/">
-                    <ButtonContainer add onClick={() => handleAddProduct()}>
-                      add product
+                    <ButtonContainer cart onClick={() => handleEditProduct()}>
+                      edit
                     </ButtonContainer>
                   </Link>
                 </div>
@@ -269,15 +288,6 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
   );
 }
 
-// title short text
-// comapny short text
-// Info long text
-// price $ text
-// department dropbox
-// min inv number text
-// in stock number text
-// img attachment
-
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -288,8 +298,7 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  #modal2 {
+  #modal {
     background: var(--mainWhite);
-    border-radius: 20px 20px;
   }
 `;

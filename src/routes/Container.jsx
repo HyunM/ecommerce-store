@@ -8,6 +8,7 @@ import { storeProducts, detailProduct } from "../data";
 import Modal from "../components/Modal";
 import AddModal from "../components/AddModal";
 import DeleteModal from "../components/DeleteModal";
+import EditModal from "../components/EditModal";
 
 export default class Container extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ export default class Container extends Component {
       cart: [],
       modalOpen: false,
       addModalOpen: false,
-      addDeleteOpen: true,
+      deleteModalOpen: false,
+
       modalProduct: detailProduct,
       deleteModalProduct: {},
       cartSubTotal: 0,
@@ -41,8 +43,11 @@ export default class Container extends Component {
     this.closeAddModal = this.closeAddModal.bind(this);
     this.openDeleteModal = this.openDeleteModal.bind(this);
     this.closeDeleteModal = this.closeDeleteModal.bind(this);
+    this.openEditModal = this.openEditModal.bind(this);
+    this.closeEditModal = this.closeEditModal.bind(this);
     this.addProduct = this.addProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.editProduct = this.editProduct.bind(this);
   }
 
   flipFormPage = form => {
@@ -121,6 +126,31 @@ export default class Container extends Component {
     });
   };
 
+  editProduct = (
+    id,
+    title,
+    company,
+    info,
+    department,
+    price,
+    minStock,
+    inStock
+  ) => {
+    let tempProducts = [...this.state.products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.title = title;
+    product.company = company;
+    product.info = info;
+    product.department = department;
+    product.price = price;
+    product.minStock = minStock;
+    product.inStock = inStock;
+    this.setState(() => {
+      return { products: tempProducts };
+    });
+  };
+
   openModal = id => {
     const product = this.getItem(id);
     this.setState(() => {
@@ -141,6 +171,13 @@ export default class Container extends Component {
     });
   };
 
+  openEditModal = id => {
+    const product = this.getItem(id);
+    this.setState(() => {
+      return { editModalProduct: product, editModalOpen: true };
+    });
+  };
+
   closeModal = () => {
     this.setState(() => {
       return { modalOpen: false };
@@ -156,6 +193,12 @@ export default class Container extends Component {
   closeDeleteModal = () => {
     this.setState(() => {
       return { deleteModalOpen: false };
+    });
+  };
+
+  closeEditModal = () => {
+    this.setState(() => {
+      return { editModalOpen: false };
     });
   };
 
@@ -301,6 +344,7 @@ export default class Container extends Component {
                 flipFormPage={this.flipFormPage}
                 openAddModal={this.openAddModal}
                 openDeleteModal={this.openDeleteModal}
+                openEditModal={this.openEditModal}
               />
             )}
           />
@@ -348,6 +392,12 @@ export default class Container extends Component {
           closeDeleteModal={this.closeDeleteModal}
           deleteProduct={this.deleteProduct}
           deleteModalProduct={this.state.deleteModalProduct}
+        />
+        <EditModal
+          editModalOpen={this.state.editModalOpen}
+          closeEditModal={this.closeEditModal}
+          editProduct={this.editProduct}
+          editModalProduct={this.state.editModalProduct}
         />
       </React.Fragment>
     );

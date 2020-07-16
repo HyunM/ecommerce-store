@@ -241,6 +241,7 @@ export default function ProductTable({
   openModal,
   closeModal,
   openDeleteModal,
+  openEditModal,
   updateCurrentId,
 }) {
   const data = React.useMemo(() => [...products], [products]);
@@ -318,7 +319,7 @@ export default function ProductTable({
           },
           {
             Header: "Status",
-            accessor: data => data.minStock - data.inStock,
+            accessor: data => data.inStock - data.minStock,
             Filter: NumberRangeColumnFilter,
             filter: "between",
             sortType: "basic",
@@ -362,7 +363,13 @@ export default function ProductTable({
             disableSortBy: true,
             Cell: row => (
               <div>
-                <EditIcon className="cp" color="primary" />
+                <EditIcon
+                  className="cp"
+                  color="primary"
+                  onClick={() => {
+                    openEditModal(row.row.original.id);
+                  }}
+                />
                 <DeleteIcon
                   className="cp"
                   color="secondary"
@@ -376,7 +383,7 @@ export default function ProductTable({
         ],
       },
     ],
-    [addToCart, openModal]
+    [addToCart, openModal, openDeleteModal, openEditModal, updateCurrentId]
   );
 
   const csvHeaders = [
