@@ -142,7 +142,7 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
         company: document.getElementById("company").value,
         info: document.getElementById("info").value,
         department: document.getElementById("department").value,
-        price: document.getElementById("price").value.split("$")[1],
+        price: parseFloat(document.getElementById("price").value.split("$")[1]),
         minStock: document.getElementById("minStock").value,
         inStock: document.getElementById("inStock").value,
       };

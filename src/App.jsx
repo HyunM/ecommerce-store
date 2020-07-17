@@ -17,11 +17,12 @@ class App extends Component {
   }
 
   updateNumberOfCart = number => {
-    this.setState({ numberOfCart: number });
+    this.setState(() => {
+      return { numberOfCart: number };
+    });
   };
 
   render() {
-    debugger;
     return (
       <React.Fragment>
         <Navbar numberOfCart={this.state.numberOfCart} />

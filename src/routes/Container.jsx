@@ -54,14 +54,60 @@ export default class Container extends Component {
     this.addProduct = this.addProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
     this.editProduct = this.editProduct.bind(this);
+    this.initializeCart = this.initializeCart.bind(this);
   }
 
+  componentDidMount() {
+    this.initializeCart();
+  }
+
+  initializeCart = () => {
+    if (cookies.get("myCart") === undefined) {
+      return [];
+    } else {
+      let strCookie = cookies.get("myCart");
+      let arrCookie = strCookie.split(","); //[...id-number]
+
+      let tempCartObj = [];
+      for (let i = 0; i < arrCookie.length; i++) {
+        let tempId = parseInt(arrCookie[i].split("-")[0]);
+        let tempCount = parseInt(arrCookie[i].split("-")[1]);
+        let tempObj = { id: tempId, count: tempCount };
+        tempCartObj = [...tempCartObj, tempObj];
+      }
+
+      //now TempCartObj = object of cart (id, count)
+
+      let tempProducts = [...this.state.products];
+      let tempCart = [];
+      for (let i = 0; i < tempProducts.length; i++) {
+        for (let j = 0; j < tempCartObj.length; j++) {
+          if (tempProducts[i].id === tempCartObj[j].id) {
+            tempProducts[i].inCart = true;
+            tempProducts[i].count = tempCartObj[j].count;
+            tempProducts[i].total =
+              tempProducts[i].price * tempProducts[i].count;
+            tempCart.push(tempProducts[i]);
+          }
+        }
+      }
+
+      this.setState(
+        () => {
+          this.props.updateNumberOfCart(tempCart.length);
+          return { products: tempProducts, cart: tempCart };
+        },
+        () => {
+          this.addTotals();
+        }
+      );
+    }
+  };
+
   componentDidUpdate() {
-    cookies.set(
-      "myCart",
-      this.state.cart.map(data => data.id),
-      { path: "/" }
-    );
+    let cartArr = this.state.cart.map(data => data.id + "-" + data.count);
+    let cartCookie = cartArr.toString();
+    cookies.set("myCart", cartCookie, { path: "/" });
   }
 
   flipFormPage = form => {
