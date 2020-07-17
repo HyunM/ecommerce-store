@@ -97,6 +97,7 @@ export default class Container extends Component {
       },
       () => {
         this.addTotals();
+        this.props.updateNumberOfCart(this.state.cart.length);
       }
     );
   };
@@ -242,6 +243,7 @@ export default class Container extends Component {
       },
       () => {
         this.addTotals();
+        this.props.updateNumberOfCart(this.state.cart.length);
       }
     );
   };
@@ -255,6 +257,7 @@ export default class Container extends Component {
     product.count = product.count - 1;
     if (product.count === 0) {
       this.removeItem(id);
+      this.props.updateNumberOfCart(this.state.cart.length);
     } else {
       product.total = product.count * product.price;
       this.setState(
@@ -288,6 +291,7 @@ export default class Container extends Component {
       },
       () => {
         this.addTotals();
+        this.props.updateNumberOfCart(this.state.cart.length);
       }
     );
   };
@@ -307,6 +311,7 @@ export default class Container extends Component {
       () => {
         // this.setProducts();
         this.addTotals();
+        this.props.updateNumberOfCart(0);
       }
     );
   };
