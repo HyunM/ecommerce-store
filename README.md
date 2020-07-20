@@ -33,3 +33,5 @@ npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @ful
 npm install react-cookie
 
 npm install universal-cookie
+
+npm install file-saver tempa-xlsx
