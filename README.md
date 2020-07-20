@@ -2,7 +2,7 @@ Ecommerce Store
 
 npm
 
-styled-components
+npm install styled-components
 
 react-table
 
