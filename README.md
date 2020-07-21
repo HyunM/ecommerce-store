@@ -35,3 +35,7 @@ npm install react-cookie
 npm install universal-cookie
 
 npm install file-saver tempa-xlsx
+
+'@progress/kendo-react-notification'
+
+@progress/kendo-react-animation

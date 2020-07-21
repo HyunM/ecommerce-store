@@ -25,6 +25,11 @@ export default class Navbar extends Component {
               <p className="nav-item my-0">schedule</p>
             </Link>
           </li>
+          <li className="nav-item ml-5">
+            <Link to="/chart" className="nav-link">
+              <p className="nav-item my-0">chart</p>
+            </Link>
+          </li>
         </ul>
         <Link to="/cart" className="ml-auto">
           <ButtonContainer className="navCart">

@@ -26,3 +26,17 @@
   border: solid 1px royalblue;
   border-radius: 1rem;
 }
+
+.clickToDo {
+  color: var(--mainBlue) !important;
+  background: var(--lightBlue) !important;
+}
+
+.clickPO {
+  background: orange !important;
+  color: var(--mainBlue) !important;
+}
+
+.z0 {
+  z-index: 0;
+}

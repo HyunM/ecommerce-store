@@ -11,6 +11,8 @@ import DeleteModal from "../components/DeleteModal";
 import EditModal from "../components/EditModal";
 import Schedule from "./Schedule";
 import Cookies from "universal-cookie";
+import NotificationButton from "../components/styled/NotificationButton";
+import Chart from "./Chart";
 
 const cookies = new Cookies();
 
@@ -34,6 +36,11 @@ export default class Container extends Component {
       cartTax: 0,
       cartTotal: 0,
       formPage: true,
+      success: false,
+      error: false,
+      warning: false,
+      info: false,
+      none: false,
     };
     this.addToCart = this.addToCart.bind(this);
     // this.setProducts = this.setProducts.bind(this);
@@ -55,10 +62,6 @@ export default class Container extends Component {
     this.deleteProduct = this.deleteProduct.bind(this);
     this.editProduct = this.editProduct.bind(this);
     this.initializeCart = this.initializeCart.bind(this);
-  }
-
-  componentDidMount() {
-    this.initializeCart();
   }
 
   initializeCart = () => {
@@ -104,6 +107,10 @@ export default class Container extends Component {
     }
   };
 
+  componentDidMount() {
+    this.initializeCart();
+  }
+
   componentDidUpdate() {
     let cartArr = this.state.cart.map(data => data.id + "-" + data.count);
     let cartCookie = cartArr.toString();
@@ -144,6 +151,10 @@ export default class Container extends Component {
       () => {
         this.addTotals();
         this.props.updateNumberOfCart(this.state.cart.length);
+        this.onToggle("success");
+        setTimeout(() => {
+          this.onToggle("success");
+        }, 2500);
       }
     );
   };
@@ -173,6 +184,10 @@ export default class Container extends Component {
       },
       () => {
         this.addTotals();
+        this.onToggle("success");
+        setTimeout(() => {
+          this.onToggle("success");
+        }, 2500);
       }
     );
   };
@@ -182,9 +197,17 @@ export default class Container extends Component {
     const index = tempProducts.indexOf(this.getItem(id));
     const product = tempProducts[index];
     product.isDeleted = 1;
-    this.setState(() => {
-      return { products: tempProducts };
-    });
+    this.setState(
+      () => {
+        return { products: tempProducts };
+      },
+      () => {
+        this.onToggle("info");
+        setTimeout(() => {
+          this.onToggle("info");
+        }, 2500);
+      }
+    );
   };
 
   editProduct = (
@@ -207,9 +230,17 @@ export default class Container extends Component {
     product.price = price;
     product.minStock = minStock;
     product.inStock = inStock;
-    this.setState(() => {
-      return { products: tempProducts };
-    });
+    this.setState(
+      () => {
+        return { products: tempProducts };
+      },
+      () => {
+        this.onToggle("warning");
+        setTimeout(() => {
+          this.onToggle("warning");
+        }, 2500);
+      }
+    );
   };
 
   openModal = id => {
@@ -338,6 +369,10 @@ export default class Container extends Component {
       () => {
         this.addTotals();
         this.props.updateNumberOfCart(this.state.cart.length);
+        this.onToggle("info");
+        setTimeout(() => {
+          this.onToggle("info");
+        }, 2500);
       }
     );
   };
@@ -358,6 +393,10 @@ export default class Container extends Component {
         // this.setProducts();
         this.addTotals();
         this.props.updateNumberOfCart(0);
+        this.onToggle("info");
+        setTimeout(() => {
+          this.onToggle("info");
+        }, 2500);
       }
     );
   };
@@ -391,7 +430,10 @@ export default class Container extends Component {
     });
   };
 
+  onToggle = flag => this.setState({ [flag]: !this.state[flag] });
+
   render() {
+    const { success, error, warning, info, none } = this.state;
     return (
       <React.Fragment>
         <Switch>
@@ -429,6 +471,11 @@ export default class Container extends Component {
             )}
           />
           <Route
+            path="/chart"
+            render={props => <Chart products={this.state.products} />}
+          />
+
+          <Route
             path="/product/:id"
             render={props => (
               <Details
@@ -440,7 +487,10 @@ export default class Container extends Component {
               />
             )}
           />
-          <Route path="/schedule" render={props => <Schedule />} />
+          <Route
+            path="/schedule"
+            render={props => <Schedule products={this.state.products} />}
+          />
           <Route component={Default} />
         </Switch>
         <Modal
@@ -464,6 +514,14 @@ export default class Container extends Component {
           closeEditModal={this.closeEditModal}
           editProduct={this.editProduct}
           editModalProduct={this.state.editModalProduct}
+        />
+        <NotificationButton
+          onToggle={this.onToggle}
+          success={success}
+          error={error}
+          warning={warning}
+          info={info}
+          none={none}
         />
       </React.Fragment>
     );
