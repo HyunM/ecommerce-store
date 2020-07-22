@@ -12,10 +12,9 @@ import EditModal from "../components/EditModal";
 import Schedule from "./Schedule";
 import Cookies from "universal-cookie";
 import NotificationButton from "../components/styled/NotificationButton";
-import Chart from "./Chart";
+import ProductChart from "./ProductChart";
 
-const cookies = new Cookies();
-
+let cookies = new Cookies();
 console.log(cookies.get("myCart"));
 
 export default class Container extends Component {
@@ -44,6 +43,7 @@ export default class Container extends Component {
     };
     this.addToCart = this.addToCart.bind(this);
     // this.setProducts = this.setProducts.bind(this);
+
     this.updateCurrentId = this.updateCurrentId.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -114,7 +114,7 @@ export default class Container extends Component {
   componentDidUpdate() {
     let cartArr = this.state.cart.map(data => data.id + "-" + data.count);
     let cartCookie = cartArr.toString();
-    cookies.set("myCart", cartCookie, { path: "/" });
+    cookies.set("myCart", cartCookie, { path: "/", maxAge: 10 * 60 });
   }
 
   flipFormPage = form => {
@@ -472,7 +472,7 @@ export default class Container extends Component {
           />
           <Route
             path="/chart"
-            render={props => <Chart products={this.state.products} />}
+            render={props => <ProductChart products={this.state.products} />}
           />
 
           <Route

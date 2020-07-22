@@ -572,10 +572,12 @@ export default function ProductTable({
               ))}
             </Select>
           </div>
-          <CSVLink data={data} headers={csvHeaders} className="mx-auto export">
-            <GetAppIcon /> <p className="fl">Excel Export</p>
+          <CSVLink data={data} headers={csvHeaders} className="mx-1 export">
+            <button className="k-button f1">Export To csv</button>
           </CSVLink>
-          <ExportProducts products={products} />
+          <div className="mx-1 export">
+            <ExportProducts products={products} className="fl" />
+          </div>
         </div>
       </>
     </Styles>

@@ -19,7 +19,7 @@ export default class ExportProducts extends Component {
     return (
       <div>
         <button className="k-button" onClick={this.export}>
-          Export to Excel
+          Export To xlsx
         </button>
 
         <ExcelExport

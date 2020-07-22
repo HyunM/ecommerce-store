@@ -39,3 +39,7 @@ npm install file-saver tempa-xlsx
 '@progress/kendo-react-notification'
 
 @progress/kendo-react-animation
+
+npm install @progress/kendo-react-intl @progress/kendo-data-query @progress/kendo-drawing @progress/kendo-file-saver @progress/kendo-react-chartsㄴ
+
+npm install @progress/kendo-react-dropdowns @progress/kendo-react-popup

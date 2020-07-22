@@ -57,7 +57,7 @@ export default class Schedule extends Component {
       deleteScheduleModalDate: "",
     };
     this.submit = this.submit.bind(this);
-    this.closeDeleteScheduleModal = this.closeDeleteScheduleModal;
+    this.closeDeleteScheduleModal = this.closeDeleteScheduleModal.bind(this);
   }
 
   closeDeleteScheduleModal = () => {
@@ -88,7 +88,6 @@ export default class Schedule extends Component {
   deleteSchedule = id => {
     let tempEvents = [...this.state.events];
     tempEvents = tempEvents.filter(data => data.id !== id);
-    debugger;
     this.setState({
       events: tempEvents,
     });

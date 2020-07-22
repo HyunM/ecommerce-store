@@ -8,6 +8,7 @@ import NumberFormat from "react-number-format";
 import Files from "react-files";
 import { Link } from "react-router-dom";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
+import "../routes/ProductChart.css";
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -142,9 +143,18 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
         company: document.getElementById("company").value,
         info: document.getElementById("info").value,
         department: document.getElementById("department").value,
-        price: parseFloat(document.getElementById("price").value.split("$")[1]),
-        minStock: document.getElementById("minStock").value,
-        inStock: document.getElementById("inStock").value,
+        price: parseFloat(
+          document
+            .getElementById("price")
+            .value.split("$")[1]
+            .replace(/,/gi, "")
+        ),
+        minStock: parseInt(
+          document.getElementById("minStock").value.replace(/,/gi, "")
+        ),
+        inStock: parseInt(
+          document.getElementById("inStock").value.replace(/,/gi, "")
+        ),
       };
       addProduct(
         tempItem.title,
