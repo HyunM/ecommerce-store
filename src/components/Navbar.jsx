@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../MMSlogo.png";
 import styled from "styled-components";
 import { ButtonContainer } from "./styled/Button";
+import "./Navbar.css";
 
 export default class Navbar extends Component {
   render() {
@@ -14,7 +15,7 @@ export default class Navbar extends Component {
         <Link to="/">
           <img src={logo} width="80px" alt="store" className="navbar-brand" />
         </Link>
-        <ul className="navbar-nav align-items-center">
+        <ul className="navbar-nav align-items-center navbar-category">
           <li className="nav-item ml-5">
             <Link to="/" className="nav-link">
               <p className="nav-item my-0">products</p>

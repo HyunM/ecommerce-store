@@ -1,10 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./AreaChart.css";
 
 import "@progress/kendo-react-charts";
 import "@progress/kendo-react-popup";
-import { ComboBox, DropDownList } from "@progress/kendo-react-dropdowns";
 import "@progress/kendo-react-inputs";
 import "@progress/kendo-react-intl";
 import "@progress/kendo-data-query";
@@ -13,6 +11,7 @@ import "@progress/kendo-file-saver";
 
 import {
   Chart,
+  ChartTitle,
   ChartArea,
   ChartSeries,
   ChartSeriesItem,
@@ -45,22 +44,23 @@ export default function AreaChart({ props }) {
     }
   }
 
-  let totalValue = 0;
-  for (let i = 0; i < tempProducts.length; i++) {
-    totalValue += tempProducts[i].value;
-  }
+  // let totalValue = 0;
+  // for (let i = 0; i < tempProducts.length; i++) {
+  //   totalValue += tempProducts[i].value;
+  // }
 
   console.log(tempProducts);
 
   return (
     <my-app>
       <Chart>
+        <ChartTitle text="Expenditure By Company" />
         <ChartArea background="white" margin={30} />
         <ChartSeries>
           <ChartSeriesItem
             data={tempProducts}
             name="Company"
-            categoryField="category"
+            categoryField={"category"}
           />
         </ChartSeries>
       </Chart>

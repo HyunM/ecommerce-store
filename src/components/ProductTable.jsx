@@ -15,7 +15,6 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import { Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import matchSorter from "match-sorter";
@@ -572,11 +571,17 @@ export default function ProductTable({
               ))}
             </Select>
           </div>
-          <CSVLink data={data} headers={csvHeaders} className="mx-1 export">
-            <button className="k-button f1">Export To csv</button>
-          </CSVLink>
-          <div className="mx-1 export">
-            <ExportProducts products={products} className="fl" />
+          <div className="mt-3 mr-5">
+            <CSVLink
+              data={data}
+              headers={csvHeaders}
+              className="mx-1 export fl"
+            >
+              <button className="k-button f1">Export To csv</button>
+            </CSVLink>
+            <div className="mx-1 export fl">
+              <ExportProducts products={products} className="fl" />
+            </div>
           </div>
         </div>
       </>

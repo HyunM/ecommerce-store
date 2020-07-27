@@ -1,5 +1,4 @@
 import React from "react";
-import "./DeleteModal.css";
 import styled from "styled-components";
 import { ButtonContainer } from "./styled/Button";
 import { Link } from "react-router-dom";

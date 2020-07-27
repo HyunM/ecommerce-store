@@ -100,7 +100,12 @@ numberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
+export default function AddModal({
+  addModalOpen,
+  closeAddModal,
+  addProduct,
+  onToggle,
+}) {
   const [values, setValues] = React.useState({
     textmask: "(1  )    -    ",
     dollarformat: "0",
@@ -135,7 +140,11 @@ export default function AddModal({ addModalOpen, closeAddModal, addProduct }) {
       document.getElementById("minStock").value === "" ||
       document.getElementById("inStock").value === ""
     ) {
-      return alert("Check required property!!");
+      // return alert("Check required property!!");
+      onToggle("error");
+      setTimeout(() => {
+        onToggle("error");
+      }, 2500);
     } else {
       closeAddModal();
       let tempItem = {

@@ -502,6 +502,7 @@ export default class Container extends Component {
           addModalOpen={this.state.addModalOpen}
           closeAddModal={this.closeAddModal}
           addProduct={this.addProduct}
+          onToggle={this.onToggle.bind(this)}
         />
         <DeleteModal
           deleteModalOpen={this.state.deleteModalOpen}

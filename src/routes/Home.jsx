@@ -40,7 +40,7 @@ export default class Home extends Component {
               onClick={() => this.onFlipFormPageFromPhoto()}
             />
             <ViewListIcon
-              className="MuiSvgIcon-fontSizeLarge MuiSvgIcon-colorPrimary cp"
+              className="MuiSvgIcon-fontSizeLarge MuiSvgIcon-colorPrimary cp table-icon"
               onClick={() => this.onFlipFormPageFromBoard()}
             />
           </div>

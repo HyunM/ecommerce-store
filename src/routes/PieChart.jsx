@@ -10,6 +10,7 @@ import "@progress/kendo-file-saver";
 
 import {
   Chart,
+  ChartTitle,
   ChartLegend,
   ChartSeries,
   ChartSeriesItem,
@@ -63,7 +64,8 @@ export default function PieChart({ props }) {
   };
 
   const ChartContainer = () => (
-    <Chart title="World Population by Broad Age Groups">
+    <Chart>
+      <ChartTitle text="Status of Budget Use By Department" />
       <ChartLegend position="bottom" />
       <ChartSeries>
         <ChartSeriesItem

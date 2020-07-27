@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import "./Schedule.css";
 import DeleteScheduleModal from "../components/DeleteScheduleModal";
+import NotificationButton from "../components/styled/NotificationButton";
 
 export default class Schedule extends Component {
   constructor(props) {
@@ -55,10 +56,17 @@ export default class Schedule extends Component {
       deleteScheduleModalTitle: "",
       deleteScheduleModalId: "",
       deleteScheduleModalDate: "",
+      success: false,
+      error: false,
+      warning: false,
+      info: false,
+      none: false,
     };
     this.submit = this.submit.bind(this);
     this.closeDeleteScheduleModal = this.closeDeleteScheduleModal.bind(this);
   }
+
+  onToggle = flag => this.setState({ [flag]: !this.state[flag] });
 
   closeDeleteScheduleModal = () => {
     this.setState(() => {
@@ -91,6 +99,10 @@ export default class Schedule extends Component {
     this.setState({
       events: tempEvents,
     });
+    this.onToggle("info");
+    setTimeout(() => {
+      this.onToggle("info");
+    }, 2500);
   };
 
   clickToDo = () => {
@@ -139,6 +151,10 @@ export default class Schedule extends Component {
       events: tempEvents,
       clickStatus: "",
     });
+    this.onToggle("success");
+    setTimeout(() => {
+      this.onToggle("success");
+    }, 2500);
   };
 
   submitPO = () => {
@@ -165,15 +181,21 @@ export default class Schedule extends Component {
       start: startDate,
       end: endDate,
       classNames: "calPO",
+      id: Math.floor(Math.random() * 10000).toString(),
     };
     tempEvents.push(tempObj);
     this.setState({
       events: tempEvents,
       clickStatus: "",
     });
+    this.onToggle("success");
+    setTimeout(() => {
+      this.onToggle("success");
+    }, 2500);
   };
 
   render() {
+    const { success, error, warning, info, none } = this.state;
     return (
       <div className="py-5 mx-auto">
         <div className="container">
@@ -288,6 +310,14 @@ export default class Schedule extends Component {
           deleteScheduleModalTitle={this.state.deleteScheduleModalTitle}
           deleteScheduleModalId={this.state.deleteScheduleModalId}
           deleteScheduleModalDate={this.state.deleteScheduleModalDate}
+        />
+        <NotificationButton
+          onToggle={this.onToggle}
+          success={success}
+          error={error}
+          warning={warning}
+          info={info}
+          none={none}
         />
       </div>
     );
