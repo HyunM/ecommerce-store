@@ -3,7 +3,6 @@ import {
   ComposedChart,
   ReferenceLine,
   Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
@@ -11,16 +10,15 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import PropTypes from "prop-types";
 
 export default function DoubleBarLineChart() {
   const data = [
-    { name: "2015", CA: 590, others: 800, avg: 695 },
-    { name: "2016", CA: 868, others: 967, avg: 917 },
-    { name: "2017", CA: 1397, others: 1098, avg: 1243 },
-    { name: "2018", CA: 1480, others: 1200, avg: 1340 },
-    { name: "2019", CA: 1520, others: 1308, avg: 1414 },
-    { name: "2020", CA: 1900, others: 1880, avg: 1890 },
+    { year: "2015", CA: 590, others: 800, avg: 695 },
+    { year: "2016", CA: 868, others: 967, avg: 917 },
+    { year: "2017", CA: 1397, others: 1098, avg: 1243 },
+    { year: "2018", CA: 1480, others: 1200, avg: 1340 },
+    { year: "2019", CA: 1520, others: 1308, avg: 1414 },
+    { year: "2020", CA: 1900, others: 1880, avg: 1890 },
   ];
   return (
     <div>
@@ -35,7 +33,7 @@ export default function DoubleBarLineChart() {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey="name"
+            dataKey="year"
             label={{
               value: "Annual",
               position: "insideBottomRight",
@@ -51,7 +49,6 @@ export default function DoubleBarLineChart() {
           />
           <Tooltip />
           <Legend />
-
           <ReferenceLine y={0} stroke="#000" />
           <Bar dataKey="CA" fill="#8884d8" stackId="stack" />
           <Bar dataKey="others" fill="#82ca9d" stackId="stack" />
