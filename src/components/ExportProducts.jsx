@@ -18,9 +18,12 @@ export default class ExportProducts extends Component {
 
   save = component => {
     const options = component.workbookOptions();
-    console.log(options);
     const rows = options.sheets[0].rows;
 
+    //final Object before XLSX export
+    console.log(options);
+    debugger;
+    //Adding a color to alternate rows
     let altIdx = 0;
     rows.forEach(row => {
       if (row.type === "data") {
@@ -33,6 +36,7 @@ export default class ExportProducts extends Component {
       }
     });
 
+    //only Toyota
     for (let i = 0; i < rows.length; i++) {
       for (let j = 0; j < rows[i].cells.length; j++) {
         if (rows[i].cells[j].value === "Toyota") {
@@ -42,15 +46,18 @@ export default class ExportProducts extends Component {
       }
     }
 
+    //(3,16) fill
     rows[15].cells[2].background = "#00ff00";
     rows[15].cells[2].value = "I like green!";
 
+    //Max Stock
     for (let i = 0; i < rows.length; i++) {
       if (rows[i].cells.length > 7 && rows[i].type === "data") {
         rows[i].cells[7].value = rows[i].cells[7].value * 2;
       }
     }
 
+    //Custom Formula 1
     for (let i = 0; i < rows.length; i++) {
       if (rows[i].cells.length > 8 && rows[i].type === "data") {
         rows[i].cells[8].value =
@@ -58,6 +65,7 @@ export default class ExportProducts extends Component {
       }
     }
 
+    //Custom Formula 2
     for (let i = 0; i < rows.length; i++) {
       if (rows[i].cells.length > 9 && rows[i].type === "data") {
         rows[i].cells[9].value = "=SUM(G" + (i + 1) + "-F" + (i + 1) + ")";

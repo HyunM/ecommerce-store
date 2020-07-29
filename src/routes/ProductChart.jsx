@@ -2,6 +2,7 @@ import React from "react";
 import PieChart from "./PieChart";
 import AreaChart from "./AreaChart";
 import DoubleBarLineChart from "./DoubleBarLineChart";
+import MultiBarLineChart from "./MultiBarLineChart";
 
 export default function ProductChart(props) {
   return (
@@ -15,6 +16,9 @@ export default function ProductChart(props) {
         </div>
         <div className="row">
           <DoubleBarLineChart props={props} />
+        </div>
+        <div className="row mt-5">
+          <MultiBarLineChart props={props} />
         </div>
       </div>
     </div>
