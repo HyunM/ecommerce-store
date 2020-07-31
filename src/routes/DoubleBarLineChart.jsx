@@ -10,6 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+// eslint-disable-next-line
+import Hammerjs from "hammerjs";
 
 export default function DoubleBarLineChart() {
   const data = [

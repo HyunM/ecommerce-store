@@ -17,6 +17,7 @@ export default function ProductChart(props) {
         <div className="row">
           <DoubleBarLineChart props={props} />
         </div>
+        <hr />
         <div className="row mt-5">
           <MultiBarLineChart props={props} />
         </div>

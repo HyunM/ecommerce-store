@@ -11,18 +11,19 @@ export default class ExportProducts extends Component {
     super(props);
     this.state = {};
   }
-  _exporter;
+  exporter;
+
   export = () => {
-    this.save(this._exporter);
+    this.save(this.exporter);
   };
 
   save = component => {
     const options = component.workbookOptions();
-    const rows = options.sheets[0].rows;
+    const { rows } = options.sheets[0];
 
     //final Object before XLSX export
     console.log(options);
-    debugger;
+
     //Adding a color to alternate rows
     let altIdx = 0;
     rows.forEach(row => {
@@ -52,14 +53,14 @@ export default class ExportProducts extends Component {
 
     //Max Stock
     for (let i = 0; i < rows.length; i++) {
-      if (rows[i].cells.length > 7 && rows[i].type === "data") {
+      if (rows[i].type === "data") {
         rows[i].cells[7].value = rows[i].cells[7].value * 2;
       }
     }
 
     //Custom Formula 1
     for (let i = 0; i < rows.length; i++) {
-      if (rows[i].cells.length > 8 && rows[i].type === "data") {
+      if (rows[i].type === "data") {
         rows[i].cells[8].value =
           rows[i].cells[8].value - rows[i].cells[5].value;
       }
@@ -67,10 +68,29 @@ export default class ExportProducts extends Component {
 
     //Custom Formula 2
     for (let i = 0; i < rows.length; i++) {
-      if (rows[i].cells.length > 9 && rows[i].type === "data") {
+      if (rows[i].type === "data") {
         rows[i].cells[9].value = "=SUM(G" + (i + 1) + "-F" + (i + 1) + ")";
       }
     }
+
+    //Sheet2 Customizing
+    options.sheets[1] = {
+      columns: [{ width: 100 }, { width: 400 }],
+      rows: [
+        { type: "header", cells: [{ value: "Header1" }, { value: "Header2" }] },
+        { type: "data", cells: [{ value: "Here" }, { value: "is" }] },
+        { type: "data", cells: [{ value: "Sheet" }, { value: "2" }] },
+        {
+          type: "data",
+          cells: [
+            {
+              value: rows[5].cells[3].value,
+              background: rows[5].cells[3].background,
+            },
+          ],
+        },
+      ],
+    };
 
     component.save(options);
   };
@@ -114,7 +134,7 @@ export default class ExportProducts extends Component {
           group={group}
           fileName="Products.xlsx"
           ref={exporter => {
-            this._exporter = exporter;
+            this.exporter = exporter;
           }}
           from="5"
           filterable={true}
@@ -144,7 +164,6 @@ export default class ExportProducts extends Component {
             <ExcelExportColumn
               field="company"
               title="Company"
-              locked={"company" === "Samsung"}
               cellOptions={{
                 background: "#ffa400",
                 textAlign: "center",

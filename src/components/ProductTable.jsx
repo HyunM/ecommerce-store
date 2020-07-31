@@ -121,7 +121,7 @@ function SelectColumnFilter({
 
   return (
     <Select
-      value={filterValue}
+      value={filterValue + ""}
       onChange={e => {
         setFilter(e.target.value || undefined);
       }}
@@ -239,7 +239,6 @@ export default function ProductTable({
   products,
   addToCart,
   openModal,
-  closeModal,
   openDeleteModal,
   openEditModal,
   updateCurrentId,
