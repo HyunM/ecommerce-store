@@ -38,10 +38,11 @@ class App extends Component {
   };
 
   loginMember = (username, password) => {
+    const bcrypt = require("bcryptjs");
     for (let i = 0; i < this.state.user.length; i++) {
       if (
         username === this.state.user[i].username &&
-        password === this.state.user[i].password
+        bcrypt.compareSync(password, this.state.user[i].password)
       ) {
         this.setState({ isLogginComplete: true });
       }

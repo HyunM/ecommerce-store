@@ -5,6 +5,7 @@ export class Login extends React.Component {
   handleLoginMember = () => {
     let username = document.getElementById("login-username").value;
     let password = document.getElementById("login-password").value;
+
     this.props.loginMember(username, password);
   };
 
