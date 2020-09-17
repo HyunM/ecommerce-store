@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/ecommerce-store/static/css/main.ce36444a.chunk.css",
-    "main.js": "/ecommerce-store/static/js/main.7bf3a74a.chunk.js",
-    "main.js.map": "/ecommerce-store/static/js/main.7bf3a74a.chunk.js.map",
+    "main.css": "/ecommerce-store/static/css/main.ed504187.chunk.css",
+    "main.js": "/ecommerce-store/static/js/main.c4706ec3.chunk.js",
+    "main.js.map": "/ecommerce-store/static/js/main.c4706ec3.chunk.js.map",
     "runtime-main.js": "/ecommerce-store/static/js/runtime-main.570ce59b.js",
     "runtime-main.js.map": "/ecommerce-store/static/js/runtime-main.570ce59b.js.map",
-    "static/css/2.af3c1da9.chunk.css": "/ecommerce-store/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.b02e8ad5.chunk.js": "/ecommerce-store/static/js/2.b02e8ad5.chunk.js",
-    "static/js/2.b02e8ad5.chunk.js.map": "/ecommerce-store/static/js/2.b02e8ad5.chunk.js.map",
+    "static/css/2.76fead71.chunk.css": "/ecommerce-store/static/css/2.76fead71.chunk.css",
+    "static/js/2.3b9a52dd.chunk.js": "/ecommerce-store/static/js/2.3b9a52dd.chunk.js",
+    "static/js/2.3b9a52dd.chunk.js.map": "/ecommerce-store/static/js/2.3b9a52dd.chunk.js.map",
     "index.html": "/ecommerce-store/index.html",
-    "precache-manifest.e7c29fc8c4f7450b54af487701c715b1.js": "/ecommerce-store/precache-manifest.e7c29fc8c4f7450b54af487701c715b1.js",
+    "precache-manifest.432565bf2861be3db83acbf33b4408ea.js": "/ecommerce-store/precache-manifest.432565bf2861be3db83acbf33b4408ea.js",
     "service-worker.js": "/ecommerce-store/service-worker.js",
-    "static/css/2.af3c1da9.chunk.css.map": "/ecommerce-store/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.ce36444a.chunk.css.map": "/ecommerce-store/static/css/main.ce36444a.chunk.css.map",
-    "static/js/2.b02e8ad5.chunk.js.LICENSE.txt": "/ecommerce-store/static/js/2.b02e8ad5.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/ecommerce-store/static/media/logo.9f7e506d.svg"
+    "static/css/2.76fead71.chunk.css.map": "/ecommerce-store/static/css/2.76fead71.chunk.css.map",
+    "static/css/main.ed504187.chunk.css.map": "/ecommerce-store/static/css/main.ed504187.chunk.css.map",
+    "static/js/2.3b9a52dd.chunk.js.LICENSE.txt": "/ecommerce-store/static/js/2.3b9a52dd.chunk.js.LICENSE.txt",
+    "static/media/MMSlogo.png": "/ecommerce-store/static/media/MMSlogo.2a9583e6.png",
+    "static/media/login.svg": "/ecommerce-store/static/media/login.9a76e74e.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.570ce59b.js",
-    "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.b02e8ad5.chunk.js",
-    "static/css/main.ce36444a.chunk.css",
-    "static/js/main.7bf3a74a.chunk.js"
+    "static/css/2.76fead71.chunk.css",
+    "static/js/2.3b9a52dd.chunk.js",
+    "static/css/main.ed504187.chunk.css",
+    "static/js/main.c4706ec3.chunk.js"
   ]
 }
