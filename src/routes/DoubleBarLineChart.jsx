@@ -58,11 +58,11 @@ export default function DoubleBarLineChart() {
           <Line type="monotone" dataKey="avg" stroke="#ff7300" />
         </ComposedChart>
       </div>
-      <div className="col-3 fr mx-auto">
+      {/* <div className="col-3 fr mx-auto">
         <pre>
           <code>{JSON.stringify(data, null, 2)}</code>
         </pre>
-      </div>
+      </div> */}
     </div>
   );
 }

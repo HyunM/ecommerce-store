@@ -128,9 +128,9 @@ export default function MultiBarLineChart() {
         </ComposedChart>
       </div>
       <div className="col-3 fr mx-auto">
-        <pre>
+        {/* <pre>
           <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        </pre> */}
       </div>
     </div>
   );

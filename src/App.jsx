@@ -45,6 +45,9 @@ class App extends Component {
         bcrypt.compareSync(password, this.state.user[i].password)
       ) {
         this.setState({ isLogginComplete: true });
+        break;
+      } else if (i === this.state.user.length - 1) {
+        alert("Invalid Username or Password");
       }
     }
   };
